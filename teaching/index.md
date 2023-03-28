@@ -14,4 +14,5 @@ AIST 2120, Principles of Scripting and Automation, Spring 2023 @Augusta Universi
 
 [Test2 Review Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Test2_Review.pptx)
 
+[Test3 Review Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Test3_Review.pptx)
 
