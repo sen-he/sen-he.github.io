@@ -11,4 +11,9 @@ title: Teaching
 
   SFWE 101, Introduction to Software Engineering, Fall 2023 @The University of Arizona
   
-  [MidTerm 1 Review Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Midterm1_Review.pptx)
+  [MidTerm 1 Review Slides, PPT Version](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Midterm1_Review.pptx)
+  
+  [MidTerm 1 Review Slides, PDF Version](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Midterm1_Review.pdf)
+
+
+
