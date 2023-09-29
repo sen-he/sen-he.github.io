@@ -15,5 +15,9 @@ title: Teaching
   
   [MidTerm 1 Review Slides, PDF Version](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Midterm1_Review.pdf)
 
+  [Module 4 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Module%204%20-%20Software%20Implementation%20In%20Class%20Activities.pptx)
+
+
+
 
 
