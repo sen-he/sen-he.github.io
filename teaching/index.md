@@ -17,7 +17,7 @@ title: Teaching
 
   [Module 4 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Module%204%20-%20Software%20Implementation%20In%20Class%20Activities.pptx)
 
-
+  [Module 5 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Module%205%20-%20Basic%20Python%20Execution%20Control%20Constructs%20In%20Class%20Activities.pptx)
 
 
 
