@@ -20,3 +20,8 @@ title: Teaching
   [Module 5 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Module%205%20-%20Basic%20Python%20Execution%20Control%20Constructs%20In%20Class%20Activities.pptx)
 
   [Module 5 Chap7 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Module%205%20-%20Chapter%207.pptx)
+
+  [MidTerm 2 Review Slides, PPT Version](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Midterm2_Review.pptx)
+  
+  [MidTerm 2 Review Slides, PDF Version](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Midterm2_Review.pdf)
+
