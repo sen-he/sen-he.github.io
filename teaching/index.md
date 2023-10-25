@@ -10,10 +10,7 @@ title: Teaching
   AIST 2120, Principles of Scripting and Automation, Spring 2023 @Augusta University
 
   SFWE 101, Introduction to Software Engineering, Fall 2023 @The University of Arizona
-  
-  [MidTerm 1 Review Slides, PPT Version](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Midterm1_Review.pptx)
-  
-  [MidTerm 1 Review Slides, PDF Version](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Midterm1_Review.pdf)
+
 
   [Module 4 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Module%204%20-%20Software%20Implementation%20In%20Class%20Activities.pptx)
 
@@ -21,7 +18,9 @@ title: Teaching
 
   [Module 5 Chap7 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Module%205%20-%20Chapter%207.pptx)
 
-  [MidTerm 2 Review Slides, PPT Version](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Midterm2_Review.pptx)
+  [Module 5 Chap8 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Chap%208.pptx)
+
   
-  [MidTerm 2 Review Slides, PDF Version](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Midterm2_Review.pdf)
+
+
 
