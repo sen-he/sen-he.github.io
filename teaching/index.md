@@ -18,7 +18,13 @@ title: Teaching
 
   [Module 5 Chap7 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Module%205%20-%20Chapter%207.pptx)
 
-  [Module 5 Chap8 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Chap%208.pptx)
+  [Module 5 Chap8 List Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Chap%208.pptx)
+
+  [Module 5 Chap8 Dict Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Mod%206%20Chapter%208_2.pptx)
+
+
+
+  
 
   
 
