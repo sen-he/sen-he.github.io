@@ -24,6 +24,7 @@ title: Teaching
 
   [Module 6 Chap9 Class Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Module%206%20-%20Python%20Classes%20Functions%20and%20Modules%20In%20Class%20Activities.pptx)
 
+  [Module 6 Chap10 Modules Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Modules.pptx)
 
 
 
