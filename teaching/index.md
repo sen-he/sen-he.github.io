@@ -26,6 +26,11 @@ title: Teaching
 
   [Module 6 Chap10 Modules Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Modules.pptx)
 
+  [Module 6 Chap11 Exception Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Module%206%20-%20Exception%20Handling.pptx)
+
+
+
+
 
 
 
