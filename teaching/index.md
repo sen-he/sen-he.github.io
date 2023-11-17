@@ -30,6 +30,11 @@ title: Teaching
 
   [Module 6 Chap12 FIles Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/workingFiles.pptx)
 
+  [Module 7 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/slides_mod7_DifferentTypesOfSoftwareTestingAndAlienInvasionSourceCode.pptx)
+
+
+
+
 
 
 
