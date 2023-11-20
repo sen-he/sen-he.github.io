@@ -32,7 +32,7 @@ title: Teaching
 
   [Module 7 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/slides_mod7_DifferentTypesOfSoftwareTestingAndAlienInvasionSourceCode.pptx)
 
-  <strong>[Final Review]</strong>(https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Final_Review%20-%20.pptx)
+  <strong>[Final Review](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Final_Review%20-%20.pptx)</strong>
 
 
 
