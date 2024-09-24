@@ -11,6 +11,12 @@ title: Teaching
 
   SFWE 101, Introduction to Software Engineering, Fall 2023 @The University of Arizona
 
+  SFWE 101, Introduction to Software Engineering, Spring 2024 @The University of Arizona
+
+  SFWE 101, Introduction to Software Engineering, Fall 2024 @The University of Arizona
+
+  SFWE 409/509, Cloud Computing Principle, Spring 2025 @The University of Arizona
+
 
   [Module 4 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Module%204%20-%20Software%20Implementation%20In%20Class%20Activities.pptx)
 
@@ -32,9 +38,9 @@ title: Teaching
 
   [Module 7 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/slides_mod7_DifferentTypesOfSoftwareTestingAndAlienInvasionSourceCode.pptx)
 
-  <strong>[Final Review](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Final_Review%20-%20.pptx)</strong>
-
   [Module 8 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Module%208%20-%20Adding%20New%20Features%20to%20Alien%20Invasion.pptx)
+
+  <strong>[Midterm 1 Review](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Midterm1_Review.pptx)</strong>
 
 
 
