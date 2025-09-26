@@ -40,7 +40,7 @@ title: Teaching
 
   [Module 8 Slides](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Module%208%20-%20Adding%20New%20Features%20to%20Alien%20Invasion.pptx)
 
-  <strong>[Final Review](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Final_Review%20-%20.pptx)</strong>
+  <strong>[Midterm 1 Review](https://github.com/sen-he/sen-he.github.io/blob/master/teaching/Midterm1_Review.pptx)</strong>
 
 
 
