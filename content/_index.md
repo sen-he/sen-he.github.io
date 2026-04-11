@@ -34,7 +34,7 @@ sections:
       title: '🔬 Research Overview'
       subtitle: ''
       text: |-
-        My research lies at the intersection of **software engineering**, **cloud computing**, and **artificial intelligence**. I am particularly interested in how large language models can be orchestrated as multi-agent systems to solve complex software engineering tasks — from automated code generation and debugging to performance optimization.
+        My research lies at the intersection of **AI for Software Engineering**, **Computer Vision**, and **Human-Computer Interaction**. I am particularly interested in how large language models can be orchestrated as multi-agent systems to solve complex software engineering tasks — from automated code generation and debugging to performance optimization.
 
         My current research thrusts include:
 
