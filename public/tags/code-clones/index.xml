@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code Clones | Sen He</title>
+    <link>https://sen-he.github.io/tags/code-clones/</link>
+      <atom:link href="https://sen-he.github.io/tags/code-clones/index.xml" rel="self" type="application/rss+xml" />
+    <description>Code Clones</description>
+    <generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 01 Jan 2025 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://sen-he.github.io/media/icon_hu_da05098ef60dc2e7.png</url>
+      <title>Code Clones</title>
+      <link>https://sen-he.github.io/tags/code-clones/</link>
+    </image>
+    
+    <item>
+      <title>Unveiling code clone patterns in open source VR software: an empirical study</title>
+      <link>https://sen-he.github.io/publications/chen-2025-vr-clones/</link>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>https://sen-he.github.io/publications/chen-2025-vr-clones/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

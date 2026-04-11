@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI Code Generation | Sen He</title>
+    <link>https://sen-he.github.io/tags/ai-code-generation/</link>
+      <atom:link href="https://sen-he.github.io/tags/ai-code-generation/index.xml" rel="self" type="application/rss+xml" />
+    <description>AI Code Generation</description>
+    <generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 01 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://sen-he.github.io/media/icon_hu_da05098ef60dc2e7.png</url>
+      <title>AI Code Generation</title>
+      <link>https://sen-he.github.io/tags/ai-code-generation/</link>
+    </image>
+    
+    <item>
+      <title>Performance analysis of AI-generated code: A case study of Copilot, Copilot Chat, CodeLlaMa, and DeepSeek-Coder models</title>
+      <link>https://sen-he.github.io/publications/li-2026-ai-codegen/</link>
+      <pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://sen-he.github.io/publications/li-2026-ai-codegen/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

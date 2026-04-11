@@ -12,8 +12,13 @@ sections:
       subtitle: ''
       text: |-
         ## Current Students
+        
+        ### PhD Students
+        - **Zhenyu Qi** (Start Year - 2024 ) — LLM4SE: LLM for Performat Code Generation
+        - **Haotang Li** (Start Year - 2024 ) — Computer Vision: Physical-guided MDE, Segmentation
+        - **Jiajie Wang** (Start Year - 2025 ) — LLM4SE: LLM for Automated VR Testing
 
-        *Information coming soon.* If you are a current or prospective student, please see below.
+
 
         <!-- 
         Template for adding students:
@@ -32,24 +37,23 @@ sections:
 
         ## Prospective Students
 
-        I am **actively recruiting PhD and MS students** with interests in:
+        I am **actively recruiting MS students** with interests in:
 
         - **Multi-agent LLM systems** for software engineering tasks
-        - **Cloud computing** performance testing and optimization
         - **AI-driven software testing** for emerging platforms (VR, microservices)
         - **Computer vision** and medical image analysis
 
         **What I look for**: Strong programming skills (Python preferred), curiosity about research problems, willingness to read and critically evaluate papers, and good written communication. Prior publications are a plus but not required for MS applicants.
 
-        **How to apply**: Send me an [email](mailto:senhe@arizona.edu) with your CV, transcripts, and a brief description of your research interests. Please mention specific projects from my research page that interest you — this helps me understand your fit.
+        **How to apply**: Send me your CV, transcripts, and a brief description of your research interests to sennhe AT arizona DOT edu. Please mention specific projects from my research page that interest you — this helps me understand your fit.
 
         ---
 
         ## Collaborators
 
-        I collaborate broadly across software engineering, computer vision, cloud computing, and interdisciplinary domains. Notable collaborators include faculty and researchers at:
+        I collaborate broadly across software engineering, computer vision, human-computer interaction, and interdisciplinary domains. Notable collaborators include faculty and researchers at:
 
-        - University of Texas at San Antonio
+        - East Carolina University
         - Augusta University
         - Various industry and cross-disciplinary partners
 ---

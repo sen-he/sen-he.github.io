@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Brain Connectivity | Sen He</title>
+    <link>https://sen-he.github.io/tags/brain-connectivity/</link>
+      <atom:link href="https://sen-he.github.io/tags/brain-connectivity/index.xml" rel="self" type="application/rss+xml" />
+    <description>Brain Connectivity</description>
+    <generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 01 Jan 2025 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://sen-he.github.io/media/icon_hu_da05098ef60dc2e7.png</url>
+      <title>Brain Connectivity</title>
+      <link>https://sen-he.github.io/tags/brain-connectivity/</link>
+    </image>
+    
+    <item>
+      <title>Self-Supervised Graph Transformer with Contrastive Learning for Brain Connectivity Analysis Towards Improving Autism Detection</title>
+      <link>https://sen-he.github.io/publications/leng-2025-brain-autism/</link>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>https://sen-he.github.io/publications/leng-2025-brain-autism/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Applied Computer Vision and Medical Image Analysis</title>
+      <link>https://sen-he.github.io/projects/computer-vision/</link>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>https://sen-he.github.io/projects/computer-vision/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;This research thrust applies deep learning and computer vision techniques to impactful application domains, with a current emphasis on &lt;strong&gt;medical image analysis&lt;/strong&gt; and &lt;strong&gt;privacy-preserving sensing&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;active-projects&#34;&gt;Active Projects&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Brain Connectivity Analysis for Autism Detection&lt;/strong&gt;: Developing self-supervised graph transformers with contrastive learning to analyze brain connectivity patterns from fMRI data, with the goal of improving autism spectrum disorder detection (published at ISBI 2025).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Medical Image Segmentation&lt;/strong&gt;: Collaborating on advanced segmentation architectures for biomedical imaging applications, including work targeting ECCV venues.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Privacy-Preserving Posture Monitoring (UWB-PostureGuard)&lt;/strong&gt;: A UWB-based RF sensing system for continuous ergonomic sitting posture monitoring that avoids the privacy concerns of camera-based approaches (published at HICSS 2026, NSF I-Corps participation).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Sediment Concentration Estimation&lt;/strong&gt;: Applying machine learning models to estimate suspended sediment concentration from laboratory data, bridging computer vision/ML with environmental monitoring.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

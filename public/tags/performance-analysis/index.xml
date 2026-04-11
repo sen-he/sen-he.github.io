@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Performance Analysis | Sen He</title>
+    <link>https://sen-he.github.io/tags/performance-analysis/</link>
+      <atom:link href="https://sen-he.github.io/tags/performance-analysis/index.xml" rel="self" type="application/rss+xml" />
+    <description>Performance Analysis</description>
+    <generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 01 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://sen-he.github.io/media/icon_hu_da05098ef60dc2e7.png</url>
+      <title>Performance Analysis</title>
+      <link>https://sen-he.github.io/tags/performance-analysis/</link>
+    </image>
+    
+    <item>
+      <title>Performance analysis of AI-generated code: A case study of Copilot, Copilot Chat, CodeLlaMa, and DeepSeek-Coder models</title>
+      <link>https://sen-he.github.io/publications/li-2026-ai-codegen/</link>
+      <pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://sen-he.github.io/publications/li-2026-ai-codegen/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

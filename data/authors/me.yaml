@@ -15,8 +15,7 @@ status:
 role: Assistant Professor
 bio: |
   Sen He is an Assistant Professor in the Department of Electrical and Computer Engineering
-  at the University of Arizona. His research spans multi-agent LLM orchestration,
-  software performance engineering, cloud computing systems, and computer vision.
+  at the University of Arizona. His research spans LLM4SE, performance engineering, computer vision, and human-computer interaction.
 
 affiliations:
   - name: University of Arizona
@@ -24,15 +23,12 @@ affiliations:
     department: Department of Electrical and Computer Engineering
 
 links:
-  - icon: at-symbol
-    url: 'mailto:senhe@arizona.edu'
-    label: E-mail Me
   - icon: academicons/google-scholar
     url: https://scholar.google.com/citations?user=ySPHD4cAAAAJ&hl=en
   - icon: academicons/dblp
     url: https://dblp.org/pid/166/4467-2.html
   - icon: brands/linkedin
-    url: https://www.linkedin.com/in/sen-he/
+    url: https://www.linkedin.com/in/sen-he-cloud/
   - icon: brands/github
     url: https://github.com/sen-he
   - icon: academicons/researchgate
@@ -40,22 +36,20 @@ links:
   - icon: academicons/orcid
     url: https://orcid.org/0000-0002-5204-8976
   - icon: hero/building-office-2
-    url: https://ece.engineering.arizona.edu/
+    url: https://ece.engineering.arizona.edu/faculty-staff/faculty/sen-he
     label: University Homepage
 
 interests:
-  - Multi-Agent LLM Orchestration
-  - Software Performance Engineering
-  - Cloud Computing Systems
+  - LLM for Software Engineering
+  - Performance Engineering
   - Computer Vision
-  - AI-Driven Software Testing
+  - Human-computer Interaction
 
 education:
   - degree: PhD in Computer Science
     institution: University of Texas at San Antonio
-    start: 2018-08-01
-    end: 2022-05-31
-    summary: |
+    Earned: 2022
+    summary of PhD studying topic: |
       Research focused on cloud performance testing methodologies, including Monte Carlo simulation-based approaches for serverless cloud performance prediction.
 
 experience:
@@ -63,35 +57,32 @@ experience:
     org: University of Arizona
     start: 2023-08-01
     summary: |
-      Faculty member in the ECE department. Teaching cloud computing (SFWE 409/509) and introductory software engineering. Research in multi-agent LLM systems, cloud performance engineering, and computer vision.
+      Faculty member in the ECE department. Teaching cloud computing (SFWE 409/509) and introductory software engineering (SFWE 101). 
   - role: Assistant Professor
     org: Augusta University
     start: 2022-08-01
     end: 2023-07-31
     summary: |
-      Taught Introduction to Cloud Computing, Networking and Cybersecurity, and Scripting and Automation.
+      Taught Networking and Cybersecurity (CYBR 2600), and Scripting and Automation (AIST 2120).
 
 skills:
   - name: Research
     items:
-      - label: LLM/Multi-Agent Systems
+      - label: LLM4SE
         level: 5
       - label: Cloud Computing
         level: 5
       - label: Software Testing
         level: 5
       - label: Computer Vision
-        level: 4
+        level: 5
   - name: Tools & Platforms
     items:
       - label: Python
         level: 5
       - label: AWS/GCP
         level: 5
-      - label: LaTeX
-        level: 5
-      - label: Docker/Kubernetes
-        level: 4
+
 
 languages:
   - name: English

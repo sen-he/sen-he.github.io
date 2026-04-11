@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Software Engineering | Sen He</title>
+    <link>https://sen-he.github.io/tags/software-engineering/</link>
+      <atom:link href="https://sen-he.github.io/tags/software-engineering/index.xml" rel="self" type="application/rss+xml" />
+    <description>Software Engineering</description>
+    <generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 01 Jan 2024 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://sen-he.github.io/media/icon_hu_da05098ef60dc2e7.png</url>
+      <title>Software Engineering</title>
+      <link>https://sen-he.github.io/tags/software-engineering/</link>
+    </image>
+    
+    <item>
+      <title>Multi-Agent LLM Orchestration for Software Engineering</title>
+      <link>https://sen-he.github.io/projects/perforchestra/</link>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>https://sen-he.github.io/projects/perforchestra/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Large language models have demonstrated remarkable capabilities in code generation, but individual models often produce code with functional errors or performance inefficiencies. This project investigates &lt;strong&gt;multi-agent orchestration frameworks&lt;/strong&gt; that coordinate multiple LLMs through structured collaboration pipelines — combining specialized agents for categorization, code generation, debugging, and refinement.&lt;/p&gt;
+&lt;h2 id=&#34;key-contributions&#34;&gt;Key Contributions&lt;/h2&gt;
+&lt;p&gt;Our flagship system, &lt;strong&gt;PerfOrch&lt;/strong&gt;, introduces a memory-augmented multi-agent architecture where:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A &lt;strong&gt;Categorizing Agent&lt;/strong&gt; classifies programming tasks using a fixed category vocabulary to enable retrieval of relevant historical solutions.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Generator&lt;/strong&gt; and &lt;strong&gt;Debugger Agents&lt;/strong&gt; collaborate through iterative cycles to produce functionally correct code.&lt;/li&gt;
+&lt;li&gt;A &lt;strong&gt;Refinement Agent&lt;/strong&gt; optimizes code performance using aggregated insights from the orchestration&amp;rsquo;s memory module.&lt;/li&gt;
+&lt;li&gt;The architecture leverages asymmetric aggregation strategies (product vs. sum) across different pipeline stages.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We evaluate across 5 frontier LLMs and demonstrate significant improvements over single-model baselines on both correctness and runtime performance metrics.&lt;/p&gt;
+&lt;h2 id=&#34;status&#34;&gt;Status&lt;/h2&gt;
+&lt;p&gt;Manuscript submitted to ACM Transactions on Software Engineering and Methodology (TOSEM).&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

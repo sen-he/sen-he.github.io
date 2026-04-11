@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Privacy | Sen He</title>
+    <link>https://sen-he.github.io/tags/privacy/</link>
+      <atom:link href="https://sen-he.github.io/tags/privacy/index.xml" rel="self" type="application/rss+xml" />
+    <description>Privacy</description>
+    <generator>HugoBlox Kit (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 01 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://sen-he.github.io/media/icon_hu_da05098ef60dc2e7.png</url>
+      <title>Privacy</title>
+      <link>https://sen-he.github.io/tags/privacy/</link>
+    </image>
+    
+    <item>
+      <title>UWB-PostureGuard: A Privacy-Preserving RF Sensing System for Continuous Ergonomic Sitting Posture Monitoring</title>
+      <link>https://sen-he.github.io/publications/li-2026-uwb-posture/</link>
+      <pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://sen-he.github.io/publications/li-2026-uwb-posture/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
