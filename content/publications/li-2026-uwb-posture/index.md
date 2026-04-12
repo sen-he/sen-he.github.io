@@ -13,7 +13,7 @@ authors:
 date: "2026-01-01"
 publication_types: ["paper-conference"]
 publication: "*HICSS 2026*"
-featured: false
+featured: true
 tags:
   - UWB
   - Privacy

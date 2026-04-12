@@ -16,7 +16,7 @@ publication: "*IEEE Transactions on Mobile Computing*, 25(3): 4063-4076"
 hugoblox:
   ids:
     doi: "10.1109/TMC.2025.3624155"
-featured: false
+featured: true
 tags:
   - Authentication
   - Mobile Computing

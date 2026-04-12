@@ -17,7 +17,7 @@ publication: "*Automated Software Engineering*, 32(2): 72"
 hugoblox:
   ids:
     doi: "10.1007/s10515-025-00536-2"
-featured: false
+featured: true
 tags:
   - Code Clones
   - VR
