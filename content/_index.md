@@ -12,13 +12,10 @@ sections:
     content:
       username: me
       text: ''
-      button:
-        text: Download CV
-        url: uploads/resume.pdf
       headings:
         about: ''
         education: ''
-        interests: ''
+        interests: 'Research Interests'
     design:
       background:
         gradient_mesh:
@@ -48,26 +45,30 @@ sections:
       columns: '1'
 
   - block: collection
-    id: papers
+    id: journals
     content:
-      title: Featured Publications
+      title: Journal Papers
+      count: 5
       filters:
         folders:
           - publications
-        featured_only: true
+        publication_type: article-journal
     design:
-      view: article-grid
-      columns: 2
+      view: citation
 
   - block: collection
+    id: conferences
     content:
-      title: Recent Publications
-      text: |
-        For a complete list, see [Google Scholar](https://scholar.google.com/citations?user=ySPHD4cAAAAJ&hl=en) or [DBLP](https://dblp.org/pid/166/4467-2.html).
+      title: Conference Papers
+      count: 5
       filters:
         folders:
           - publications
-        exclude_featured: false
+        publication_type: paper-conference
+      archive:
+        enable: true
+        link: https://scholar.google.com/citations?user=ySPHD4cAAAAJ&hl=en
+        text: See all
     design:
       view: citation
 

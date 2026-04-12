@@ -84,6 +84,24 @@ skills:
         level: 5
 
 
+awards:
+  - year: 2025
+    title: Best Paper Award
+    org: International Congress on Intelligent & Service-Oriented Systems Engineering
+    location: Tucson, USA
+  - year: 2025
+    title: Award for Excellence at the Student Interface
+    org: Department of Systems and Industrial Engineering
+    location: Tucson, USA
+  - year: 2020
+    title: Outstanding Research Awards
+    org: Department of Computer Science, UTSA
+    location: San Antonio, USA
+  - year: 2019
+    title: ACM SIGSOFT Distinguished Paper Award
+    org: ACM SIGSOFT
+    location: Tallinn, Estonia
+
 languages:
   - name: English
     level: 5
