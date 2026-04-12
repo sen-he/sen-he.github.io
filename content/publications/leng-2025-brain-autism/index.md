@@ -12,7 +12,7 @@ publication: "*IEEE International Symposium on Biomedical Imaging (ISBI)*, 1-5"
 hugoblox:
   ids:
     doi: "10.1109/ISBI60581.2025.10981292"
-featured: true
+featured: false
 tags:
   - Brain Connectivity
   - Autism Detection
