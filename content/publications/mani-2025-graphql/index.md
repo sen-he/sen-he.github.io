@@ -2,8 +2,8 @@
 title: "GraphQL-Aware Healing in Service-Oriented Architectures via Multi-Signal Learning"
 authors:
   - Nariman Mani
-  - admin
-  - others
+  - Sen He
+  - Tomás Cerný
 date: "2025-01-01"
 publication_types: ["paper-conference"]
 publication: "*IEEE Symposium on Service-Oriented System Engineering (SOSE)*, 2025"
