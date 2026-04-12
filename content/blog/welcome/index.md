@@ -19,4 +19,4 @@ This site serves as a central hub for my research activities, publications, teac
 - PerfOrch, our multi-agent LLM orchestration framework, has been submitted to TOSEM.
 - I'm teaching SFWE 409/509 Cloud Computing Principles this spring.
 
-If you're interested in my research or considering graduate studies at the University of Arizona, please don't hesitate to [reach out](mailto:senhe@arizona.edu).
+

@@ -43,7 +43,7 @@ sections:
         - **AI-Driven Software Testing**: Harnessing LLMs and AI techniques for automated testing of complex software systems, including VR applications and cloud-native architectures.
         - **Computer Vision**: Applied work in medical image segmentation, brain connectivity analysis, and 3D vision.
 
-        **I am actively looking for motivated PhD and MS students** interested in these research areas. If you are passionate about LLMs, cloud systems, or software engineering research, please [reach out](mailto:senhe@arizona.edu).
+   
     design:
       columns: '1'
 
