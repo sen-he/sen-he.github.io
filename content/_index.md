@@ -45,26 +45,28 @@ sections:
       columns: '1'
 
   - block: collection
-    id: journals
+    id: papers
     content:
-      title: Journal Papers
+      title: Selected Journal Papers
       count: 5
       filters:
         folders:
           - publications
         publication_type: article-journal
+        featured_only: true
     design:
       view: citation
 
   - block: collection
     id: conferences
     content:
-      title: Conference Papers
+      title: Selected Conference Papers
       count: 5
       filters:
         folders:
           - publications
         publication_type: paper-conference
+        featured_only: true
       archive:
         enable: true
         link: https://scholar.google.com/citations?user=ySPHD4cAAAAJ&hl=en
