@@ -76,8 +76,7 @@ a { color: inherit; }
   height: 100%;
   z-index: 0;
   pointer-events: none;
-  filter: blur(30px);
-  opacity: 0.85;
+  opacity: 0.95;
 }
 .bg-grain {
   position: fixed;

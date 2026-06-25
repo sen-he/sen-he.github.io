@@ -174,44 +174,119 @@ import "../styles/global.css";
       }
     </script>
     <script>
-      // Animated background: drifting citron orbs on a low-res canvas (scaled up
-      // for soft blur, cheap). Draws one frame immediately so it shows even where
-      // rAF is paused; loops only when motion is allowed.
+      // Animated background: a Tucson saguaro rendered as a twinkling
+      // constellation / point-cloud (futuristic, sci-fi, also reads as an
+      // AI network graph), over a drifting starfield with a slow scan line.
+      // Draws one frame immediately so it shows even where rAF is paused;
+      // loops only when motion is allowed.
       const cv = document.getElementById("bg") as HTMLCanvasElement | null;
-      const cx = cv?.getContext("2d");
+      const cx = cv && cv.getContext("2d");
       if (cv && cx) {
         const reduceBg = matchMedia("(prefers-reduced-motion: reduce)").matches;
-        let w = 0, h = 0;
-        const orbs = [
-          { x: 0.18, y: 0.22, r: 0.7, c: 0, sx: 0.05, sy: 0.04, px: 0, py: 1 },
-          { x: 0.82, y: 0.12, r: 0.55, c: 2, sx: 0.045, sy: 0.06, px: 2, py: 0.5 },
-          { x: 0.62, y: 0.72, r: 0.8, c: 1, sx: 0.038, sy: 0.05, px: 1, py: 3 },
-          { x: 0.1, y: 0.85, r: 0.5, c: 3, sx: 0.06, sy: 0.03, px: 4, py: 2 },
-        ];
-        const pal = () =>
-          document.documentElement.dataset.theme === "dark"
-            ? ["152,184,47", "88,107,0", "201,220,114", "44,60,20"]
-            : ["138,158,26", "120,140,30", "182,212,58", "200,210,160"];
+        const DPR = Math.min(window.devicePixelRatio || 1, 2);
+        let W = 0, H = 0;
+
+        // Sample nodes from a saguaro silhouette (trunk + a low-left and a
+        // higher-right arm), then precompute a stable neighbour network.
+        const saguaro = (() => {
+          const o = document.createElement("canvas");
+          o.width = 100; o.height = 140;
+          const oc = o.getContext("2d")!;
+          const bar = (x, y, w, h, r) => {
+            oc.beginPath();
+            oc.moveTo(x + r, y);
+            oc.arcTo(x + w, y, x + w, y + h, r);
+            oc.arcTo(x + w, y + h, x, y + h, r);
+            oc.arcTo(x, y + h, x, y, r);
+            oc.arcTo(x, y, x + w, y, r);
+            oc.fill();
+          };
+          oc.fillStyle = "#fff";
+          bar(43, 20, 14, 116, 7);  // trunk
+          bar(22, 64, 26, 12, 6);   // left arm — elbow
+          bar(22, 40, 12, 30, 6);   // left arm — rises
+          bar(54, 52, 26, 12, 6);   // right arm — elbow
+          bar(70, 24, 12, 32, 6);   // right arm — rises higher
+          const d = oc.getImageData(0, 0, 100, 140).data;
+          const pts: any[] = [];
+          let tries = 0;
+          while (pts.length < 130 && tries < 9000) {
+            tries++;
+            const x = Math.floor(Math.random() * 100);
+            const y = Math.floor(Math.random() * 140);
+            if (d[(y * 100 + x) * 4 + 3] > 12)
+              pts.push({ nx: x / 100, ny: y / 140, ph: Math.random() * 6.28, sp: 0.5 + Math.random() });
+          }
+          const pairs: any[] = [];
+          for (let i = 0; i < pts.length; i++)
+            for (let j = i + 1; j < pts.length; j++) {
+              const dd = Math.hypot(pts[i].nx - pts[j].nx, pts[i].ny - pts[j].ny);
+              if (dd < 0.095) pairs.push([i, j, dd]);
+            }
+          return { pts, pairs };
+        })();
+
+        let stars: any[] = [];
+        const buildStars = () => {
+          stars = [];
+          const n = Math.round((W * H) / 26000);
+          for (let i = 0; i < n; i++)
+            stars.push({ x: Math.random(), y: Math.random(), r: Math.random() * 1.1 + 0.3, ph: Math.random() * 6.28, sp: 0.3 + Math.random() * 0.8 });
+        };
         const resize = () => {
-          w = cv.width = Math.max(1, Math.ceil(innerWidth / 7));
-          h = cv.height = Math.max(1, Math.ceil(innerHeight / 7));
+          W = innerWidth; H = innerHeight;
+          cv.width = W * DPR; cv.height = H * DPR;
+          cv.style.width = W + "px"; cv.style.height = H + "px";
+          cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+          buildStars();
+        };
+        const rect = () => {
+          const h = Math.min(H * 0.82, 600);
+          const w = h * (100 / 140);
+          const cxp = W * (W > 900 ? 0.72 : 0.5);
+          return { x: cxp - w / 2, y: (H - h) / 2, w, h };
         };
         const draw = (t: number) => {
-          const cols = pal();
           const dark = document.documentElement.dataset.theme === "dark";
-          cx.clearRect(0, 0, w, h);
-          cx.globalCompositeOperation = dark ? "lighter" : "source-over";
-          const a = dark ? 0.3 : 0.14;
-          for (const o of orbs) {
-            const x = (o.x + Math.sin(t * o.sx + o.px) * 0.13) * w;
-            const y = (o.y + Math.cos(t * o.sy + o.py) * 0.13) * h;
-            const rad = o.r * Math.max(w, h);
-            const g = cx.createRadialGradient(x, y, 0, x, y, rad);
-            g.addColorStop(0, `rgba(${cols[o.c]},${a})`);
-            g.addColorStop(1, `rgba(${cols[o.c]},0)`);
-            cx.fillStyle = g;
-            cx.fillRect(0, 0, w, h);
+          const node = dark ? "152,184,47" : "104,124,18";
+          cx.clearRect(0, 0, W, H);
+          const R = rect();
+          const gx = R.x + R.w / 2, gy = R.y + R.h * 0.45;
+          const gl = cx.createRadialGradient(gx, gy, 0, gx, gy, R.h * 0.95);
+          gl.addColorStop(0, dark ? "rgba(152,184,47,0.11)" : "rgba(120,140,30,0.06)");
+          gl.addColorStop(1, "rgba(0,0,0,0)");
+          cx.fillStyle = gl; cx.fillRect(0, 0, W, H);
+
+          for (const s of stars) {
+            const tw = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * s.sp + s.ph));
+            cx.globalAlpha = (dark ? 0.5 : 0.3) * tw;
+            cx.fillStyle = `rgb(${node})`;
+            cx.beginPath(); cx.arc(s.x * W, s.y * H, s.r, 0, 6.2832); cx.fill();
           }
+
+          const jx = (p) => R.x + p.nx * R.w + Math.sin(t * 0.5 + p.ph) * 3;
+          const jy = (p) => R.y + p.ny * R.h + Math.cos(t * 0.45 + p.ph) * 3;
+          cx.lineWidth = 1;
+          for (const pr of saguaro.pairs) {
+            const a = saguaro.pts[pr[0]], b = saguaro.pts[pr[1]];
+            cx.globalAlpha = (dark ? 0.2 : 0.13) * (1 - pr[2] / 0.095);
+            cx.strokeStyle = `rgb(${node})`;
+            cx.beginPath(); cx.moveTo(jx(a), jy(a)); cx.lineTo(jx(b), jy(b)); cx.stroke();
+          }
+          for (const p of saguaro.pts) {
+            const tw = 0.4 + 0.6 * (0.5 + 0.5 * Math.sin(t * p.sp + p.ph));
+            cx.globalAlpha = (dark ? 0.95 : 0.55) * tw;
+            cx.fillStyle = `rgb(${node})`;
+            cx.beginPath(); cx.arc(jx(p), jy(p), 1.7, 0, 6.2832); cx.fill();
+          }
+          cx.globalAlpha = 1;
+
+          const scanY = ((t * 0.05) % 1) * H;
+          const sg = cx.createLinearGradient(0, scanY - 50, 0, scanY + 50);
+          sg.addColorStop(0, `rgba(${node},0)`);
+          sg.addColorStop(0.5, `rgba(${node},${dark ? 0.06 : 0.04})`);
+          sg.addColorStop(1, `rgba(${node},0)`);
+          cx.fillStyle = sg; cx.fillRect(0, scanY - 50, W, 100);
         };
         resize();
         draw(0);
