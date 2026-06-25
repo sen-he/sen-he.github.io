@@ -261,8 +261,17 @@ import "../styles/global.css";
           const col = dark ? "#b6d43a" : "#4f610e";
           g.font = `${size}px "JetBrains Mono", ui-monospace, monospace`;
           g.textAlign = "center"; g.textBaseline = "middle";
+          // dark halo so the symbol reads clearly when it floats over the bright
+          // saguaro; invisible over the plain near-black background
+          if (dark) {
+            const halo = g.createRadialGradient(dim / 2, dim / 2, 0, dim / 2, dim / 2, dim * 0.5);
+            halo.addColorStop(0, "rgba(6,8,4,0.62)");
+            halo.addColorStop(0.6, "rgba(6,8,4,0.32)");
+            halo.addColorStop(1, "rgba(6,8,4,0)");
+            g.globalAlpha = 1; g.fillStyle = halo; g.fillRect(0, 0, dim, dim);
+          }
           g.fillStyle = col; g.shadowColor = col;
-          g.globalAlpha = dark ? 0.55 : 0.42; g.shadowBlur = dark ? 22 : 7; g.fillText(ch, dim / 2, dim / 2);
+          g.globalAlpha = dark ? 0.6 : 0.42; g.shadowBlur = dark ? 22 : 7; g.fillText(ch, dim / 2, dim / 2);
           g.globalAlpha = dark ? 0.95 : 0.72; g.shadowBlur = dark ? 6 : 2; g.fillText(ch, dim / 2, dim / 2);
           return { canvas: c, dim };
         };
