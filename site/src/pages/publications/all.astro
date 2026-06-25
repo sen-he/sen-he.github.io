@@ -53,7 +53,7 @@ const counts = {
                       <span class={a === "Sen He" ? "me" : undefined}>{a}{i < p.authors.length - 1 ? ", " : ""}</span>
                     ))}
                   </p>
-                  <p class="pub-venue-line"><em>{p.venue}</em></p>
+                  {p.venue && <p class="pub-venue-line"><em>{p.venue}</em></p>}
                 </div>
               </li>
             ))}

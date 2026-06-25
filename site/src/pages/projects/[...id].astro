@@ -19,7 +19,7 @@ const { Content } = await render(entry);
       <div class="reveal" style="display:flex;gap:0.4rem;flex-wrap:wrap;margin:1.25rem 0 2rem;">
         {entry.data.tags.map((t) => <span class="tag">{t}</span>)}
       </div>
-      <img src={`/projects/${entry.id}.png`} alt="" class="reveal" width="1356" height="768"
+      <img src={`/projects/${entry.id}.webp`} alt="" class="reveal" width="1356" height="768" fetchpriority="high"
         style="width:100%;height:auto;display:block;border-radius:1.25rem;border:1px solid var(--glass-border);margin-bottom:2.75rem;" />
       <div class="prose reveal"><Content /></div>
       <a href="/projects" class="link reveal" style="display:inline-block;margin-top:2.75rem;">← All projects</a>

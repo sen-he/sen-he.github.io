@@ -1,6 +1,6 @@
 ---
 title: "Welcome to My New Research Website"
-summary: "I've launched a new research website to share my work in multi-agent LLM orchestration, cloud computing, and computer vision."
+summary: "I've launched a new research website to share my work in multi-agent LLM orchestration, cloud computing, and efficient computer vision."
 date: 2025-04-11
 authors:
   - me

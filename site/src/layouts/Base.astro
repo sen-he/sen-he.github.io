@@ -6,7 +6,7 @@ interface Props {
 }
 const {
   title = "Sen He — Assistant Professor, ECE, University of Arizona",
-  description = "Sen He, Assistant Professor of Electrical & Computer Engineering at the University of Arizona. Research in multi-agent LLM orchestration, software performance engineering, and computer vision.",
+  description = "Sen He, Assistant Professor of Electrical & Computer Engineering at the University of Arizona. Research in multi-agent LLM orchestration, software performance engineering, and efficient computer vision.",
   dimBg = false,
 } = Astro.props;
 import "../styles/global.css";
@@ -34,11 +34,12 @@ import "../styles/global.css";
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
+    <a href="#main" class="skip-link">Skip to content</a>
     <canvas id="bg" class="bg-canvas" aria-hidden="true"></canvas>
     <div class="bg-grain" aria-hidden="true"></div>
     {dimBg && <div class="bg-dim" aria-hidden="true"></div>}
@@ -65,7 +66,7 @@ import "../styles/global.css";
       </div>
     </nav>
 
-    <main><slot /></main>
+    <main id="main" tabindex="-1"><slot /></main>
 
     <footer class="footer">
       <div class="wrap" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;">
@@ -195,16 +196,18 @@ import "../styles/global.css";
       // drifting neon AI/math symbols over a faint grid. Glow is pre-rendered to
       // offscreen sprites (cheap to composite); flicker is slow. Draws one frame
       // immediately (survives paused rAF / headless); loops only when motion is on.
+      // The per-frame compositing runs on a Web Worker via OffscreenCanvas when
+      // the browser supports it. Scrolling saturates the *main* thread; running
+      // the loop on a worker thread means scroll can never starve or slow it, so
+      // the animation keeps an identical pace idle and while scrolling. Sprites
+      // are still built here (canvas text needs the document's fonts) and shipped
+      // to the worker as ImageBitmaps. Older browsers fall back to a main-thread
+      // rAF loop whose clock advances by a clamped delta (no lurch on stalls).
       const cv = document.getElementById("bg") as HTMLCanvasElement | null;
-      const cx = cv && cv.getContext("2d");
-      if (cv && cx) {
+      if (cv) {
         const reduceBg = matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const DPR = Math.min(window.devicePixelRatio || 1, 3);
-        // accumulated animation clock (seconds). Advancing by a *clamped* per-frame
-        // delta — never by absolute timestamp — means a frame stall during fast
-        // scroll nudges the animation forward instead of jumping, so the saguaro
-        // wave/drift stays smooth rather than lurching when rAF is starved.
-        let elapsed = 0, last = 0;
+        let DPR = Math.min(window.devicePixelRatio || 1, 3);
+        const GRID_STEP = 68;
         let W = 0, H = 0, dark = true;
         let sag: any = null, syms: any[] = [];
         const SYMS = ["∑","∫","∂","∇","π","λ","θ","∞","Δ","σ","µ","Φ","∮","≈","∝","∈","ℝ","∀","∇θ","P(y|x)","eˣ","wᵀx","argmax","∂L"];
@@ -233,7 +236,9 @@ import "../styles/global.css";
             tries++;
             const px = Math.floor(Math.random() * 100), py = Math.floor(Math.random() * 140);
             if (d[(py * 100 + px) * 4 + 3] > 12)
-              nodes.push({ nx: px / 100, ny: py / 140, ph: Math.random() * 6.28, sp: 0.3 + Math.random() * 0.5 });
+              // ph + sp give each node its own twinkle phase & speed, so points
+              // shine periodically and out of step — some bright while others dim
+              nodes.push({ nx: px / 100, ny: py / 140, ph: Math.random() * 6.28, sp: 0.8 + Math.random() * 1.4 });
           }
           const pairs: any[] = [];
           for (let i = 0; i < nodes.length; i++)
@@ -300,65 +305,201 @@ import "../styles/global.css";
           }
         };
         const build = () => { dark = document.documentElement.dataset.theme === "dark"; buildSaguaro(); buildSymbols(); };
-        const resize = () => {
-          W = innerWidth; H = innerHeight;
-          cv.width = W * DPR; cv.height = H * DPR;
-          cv.style.width = W + "px"; cv.style.height = H + "px";
-          cx.setTransform(DPR, 0, 0, DPR, 0, 0);
-          build();
+        // worker source (classic Blob worker — self-contained, no DOM/fonts).
+        // It only COMPOSITES pre-built ImageBitmaps + the grid, so it needs no
+        // fonts; its rAF runs on the worker thread, immune to main-thread scroll.
+        const WORKER_SRC = `
+let ctx, canvas, W, H, DPR, dark, step, sag, syms = [];
+let elapsed = 0, last = 0, running = false, cur = null;
+const closeBitmaps = (p) => {
+  if (!p) return;
+  if (p.sag) { p.sag.lineBitmap && p.sag.lineBitmap.close && p.sag.lineBitmap.close(); p.sag.dotBitmap && p.sag.dotBitmap.close && p.sag.dotBitmap.close(); }
+  if (p.syms) for (const s of p.syms) s.bitmap && s.bitmap.close && s.bitmap.close();
+};
+const apply = (p) => {
+  if (cur && cur !== p) closeBitmaps(cur);
+  cur = p;
+  W = p.W; H = p.H; DPR = p.DPR; dark = p.dark; step = p.step; sag = p.sag; syms = p.syms || [];
+  canvas.width = W * DPR; canvas.height = H * DPR;
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+};
+const draw = (t) => {
+  ctx.clearRect(0, 0, W, H);
+  ctx.globalAlpha = dark ? 0.04 : 0.05;
+  ctx.strokeStyle = dark ? "#46571f" : "#b9c79a"; ctx.lineWidth = 1;
+  ctx.beginPath();
+  for (let x = step; x < W; x += step) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
+  for (let y = step; y < H; y += step) { ctx.moveTo(0, y); ctx.lineTo(W, y); }
+  ctx.stroke();
+  if (sag) {
+    const cxp = W * (W > 900 ? 0.64 : 0.5), cyp = H * 0.5;
+    const left = cxp - sag.boxW / 2, top = cyp - sag.boxH / 2;
+    ctx.globalAlpha = 0.85 + 0.12 * Math.sin(t * 0.85);
+    ctx.drawImage(sag.lineBitmap, left - sag.pad, top - sag.pad, sag.lw, sag.lh);
+    for (const nd of sag.nodes) {
+      const s = 0.5 + 0.5 * Math.sin(t * nd.sp + nd.ph);
+      const tw = s * s; // gamma: mostly dim, brief periodic shine
+      ctx.globalAlpha = 0.16 + 0.84 * tw;
+      ctx.drawImage(sag.dotBitmap, left + nd.nx * sag.boxW - sag.ds / 2, top + nd.ny * sag.boxH - sag.ds / 2, sag.ds, sag.ds);
+    }
+  }
+  for (const s of syms) {
+    const x = (s.x + Math.sin(t * 0.1 + s.dphx) * 0.03) * W;
+    const y = (s.y + Math.cos(t * 0.08 + s.dphy) * 0.04) * H;
+    ctx.globalAlpha = (dark ? 1 : 0.92) * (0.62 + 0.38 * (0.5 + 0.5 * Math.sin(t * s.sp + s.ph)));
+    ctx.drawImage(s.bitmap, x - s.dim / 2, y - s.dim / 2, s.dim, s.dim);
+  }
+  ctx.globalAlpha = 1;
+};
+const raf = (typeof requestAnimationFrame === "function") ? requestAnimationFrame : (cb) => setTimeout(() => cb(Date.now()), 16);
+const loop = (now) => {
+  if (!last) last = now;
+  let dt = (now - last) / 1000; last = now;
+  if (dt > 0.1) dt = 0.1;
+  elapsed += dt;
+  draw(elapsed);
+  raf(loop);
+};
+self.onmessage = (e) => {
+  const d = e.data;
+  if (d.type === "init") {
+    canvas = d.canvas; ctx = canvas.getContext("2d");
+    apply(d.payload); draw(elapsed);
+    if (d.animate && !running) { running = true; raf(loop); }
+  } else if (d.type === "update") {
+    if (!ctx) return; // an update can race ahead of init; ignore until the canvas exists
+    apply(d.payload);
+    if (!running) draw(elapsed);
+  }
+};
+`;
+
+        // pack the just-built sprites + layout into a transferable message
+        const makePayload = async () => {
+          const symData = await Promise.all(
+            syms.map(async (s) => ({
+              x: s.x, y: s.y, ph: s.ph, sp: s.sp, dphx: s.dphx, dphy: s.dphy,
+              dim: s.sprite.dim, bitmap: await createImageBitmap(s.sprite.canvas),
+            }))
+          );
+          let sagData: any = null;
+          if (sag)
+            sagData = {
+              nodes: sag.nodes.map((n: any) => ({ nx: n.nx, ny: n.ny, ph: n.ph, sp: n.sp })),
+              boxW: sag.boxW, boxH: sag.boxH, pad: sag.pad, ds: sag.ds, lw: sag.lw, lh: sag.lh,
+              lineBitmap: await createImageBitmap(sag.lineCanvas),
+              dotBitmap: await createImageBitmap(sag.dot),
+            };
+          return { W, H, DPR, dark, step: GRID_STEP, sag: sagData, syms: symData };
+        };
+        const transferList = (p: any) => {
+          const t: any[] = [];
+          if (p.sag) t.push(p.sag.lineBitmap, p.sag.dotBitmap);
+          for (const s of p.syms) t.push(s.bitmap);
+          return t;
         };
 
-        const draw = (t: number) => {
-          cx.clearRect(0, 0, W, H);
-          // faint blueprint grid
-          cx.globalAlpha = dark ? 0.04 : 0.05;
-          cx.strokeStyle = dark ? "#46571f" : "#b9c79a"; cx.lineWidth = 1;
-          const step = 68;
-          cx.beginPath();
-          for (let x = step; x < W; x += step) { cx.moveTo(x, 0); cx.lineTo(x, H); }
-          for (let y = step; y < H; y += step) { cx.moveTo(0, y); cx.lineTo(W, y); }
-          cx.stroke();
-          // neon saguaro constellation
-          if (sag) {
-            const cxp = W * (W > 900 ? 0.64 : 0.5), cyp = H * 0.5;
-            const left = cxp - sag.boxW / 2, top = cyp - sag.boxH / 2;
-            cx.globalAlpha = 0.85 + 0.12 * Math.sin(t * 0.85);
-            cx.drawImage(sag.lineCanvas, left - sag.pad, top - sag.pad, sag.lw, sag.lh);
-            // a band of light sweeps the saguaro: points shine in turn
-            for (const nd of sag.nodes) {
-              const wave = Math.sin(t * 1.5 - nd.ny * 5.5 - nd.nx * 2 + nd.ph * 0.5);
-              cx.globalAlpha = 0.28 + 0.72 * (0.5 + 0.5 * wave);
-              cx.drawImage(sag.dot, left + nd.nx * sag.boxW - sag.ds / 2, top + nd.ny * sag.boxH - sag.ds / 2, sag.ds, sag.ds);
+        const canUseWorker =
+          typeof Worker !== "undefined" &&
+          typeof createImageBitmap === "function" &&
+          "transferControlToOffscreen" in cv;
+        let workerActive = false;
+
+        if (canUseWorker) {
+          try {
+            const worker = new Worker(
+              URL.createObjectURL(new Blob([WORKER_SRC], { type: "text/javascript" }))
+            );
+            worker.onerror = (ev) => console.error("bg worker error", ev && (ev as any).message);
+            const off = (cv as any).transferControlToOffscreen();
+            let inited = false;
+            const sync = async (animate: boolean) => {
+              // claim init synchronously (before the await) so the OffscreenCanvas
+              // is transferred exactly once even if several syncs race at startup
+              const firstInit = !inited;
+              if (firstInit) inited = true;
+              const p = await makePayload();
+              if (firstInit) {
+                worker.postMessage({ type: "init", canvas: off, payload: p, animate }, [off, ...transferList(p)]);
+              } else {
+                worker.postMessage({ type: "update", payload: p }, transferList(p));
+              }
+            };
+            const resize = () => {
+              DPR = Math.min(window.devicePixelRatio || 1, 3);
+              W = innerWidth; H = innerHeight;
+              cv.style.width = W + "px"; cv.style.height = H + "px";
+              build();
+            };
+            resize();
+            sync(!reduceBg);
+            addEventListener("resize", () => { resize(); sync(false); }, { passive: true });
+            addEventListener("themechange", () => { build(); sync(false); });
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { build(); sync(false); });
+            workerActive = true;
+          } catch (e) {
+            console.error("bg worker setup failed; using main thread", e);
+          }
+        }
+
+        if (!workerActive) {
+          // ---- fallback: main-thread rAF loop, clamped clock (no lurch) ----
+          const cx = cv.getContext("2d");
+          if (cx) {
+            let elapsed = 0, last = 0;
+            const resize = () => {
+              DPR = Math.min(window.devicePixelRatio || 1, 3);
+              W = innerWidth; H = innerHeight;
+              cv.width = W * DPR; cv.height = H * DPR;
+              cv.style.width = W + "px"; cv.style.height = H + "px";
+              cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+              build();
+            };
+            const draw = (t: number) => {
+              cx.clearRect(0, 0, W, H);
+              cx.globalAlpha = dark ? 0.04 : 0.05;
+              cx.strokeStyle = dark ? "#46571f" : "#b9c79a"; cx.lineWidth = 1;
+              cx.beginPath();
+              for (let x = GRID_STEP; x < W; x += GRID_STEP) { cx.moveTo(x, 0); cx.lineTo(x, H); }
+              for (let y = GRID_STEP; y < H; y += GRID_STEP) { cx.moveTo(0, y); cx.lineTo(W, y); }
+              cx.stroke();
+              if (sag) {
+                const cxp = W * (W > 900 ? 0.64 : 0.5), cyp = H * 0.5;
+                const left = cxp - sag.boxW / 2, top = cyp - sag.boxH / 2;
+                cx.globalAlpha = 0.85 + 0.12 * Math.sin(t * 0.85);
+                cx.drawImage(sag.lineCanvas, left - sag.pad, top - sag.pad, sag.lw, sag.lh);
+                for (const nd of sag.nodes) {
+                  const s = 0.5 + 0.5 * Math.sin(t * nd.sp + nd.ph);
+                  const tw = s * s; // gamma: mostly dim, brief periodic shine
+                  cx.globalAlpha = 0.16 + 0.84 * tw;
+                  cx.drawImage(sag.dot, left + nd.nx * sag.boxW - sag.ds / 2, top + nd.ny * sag.boxH - sag.ds / 2, sag.ds, sag.ds);
+                }
+              }
+              for (const s of syms) {
+                const x = (s.x + Math.sin(t * 0.1 + s.dphx) * 0.03) * W;
+                const y = (s.y + Math.cos(t * 0.08 + s.dphy) * 0.04) * H;
+                cx.globalAlpha = (dark ? 1 : 0.92) * (0.62 + 0.38 * (0.5 + 0.5 * Math.sin(t * s.sp + s.ph)));
+                cx.drawImage(s.sprite.canvas, x - s.sprite.dim / 2, y - s.sprite.dim / 2, s.sprite.dim, s.sprite.dim);
+              }
+              cx.globalAlpha = 1;
+            };
+            resize();
+            draw(elapsed);
+            addEventListener("resize", () => { resize(); draw(elapsed); }, { passive: true });
+            addEventListener("themechange", () => { build(); draw(elapsed); });
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { build(); draw(elapsed); });
+            if (!reduceBg) {
+              const loop = (now: number) => {
+                if (!last) last = now;
+                let dt = (now - last) / 1000; last = now;
+                if (dt > 0.05) dt = 0.05;
+                elapsed += dt;
+                draw(elapsed);
+                requestAnimationFrame(loop);
+              };
+              requestAnimationFrame(loop);
             }
           }
-          // drifting neon symbols (slow flicker)
-          for (const s of syms) {
-            const x = (s.x + Math.sin(t * 0.1 + s.dphx) * 0.03) * W;
-            const y = (s.y + Math.cos(t * 0.08 + s.dphy) * 0.04) * H;
-            cx.globalAlpha = (dark ? 1 : 0.92) * (0.62 + 0.38 * (0.5 + 0.5 * Math.sin(t * s.sp + s.ph)));
-            cx.drawImage(s.sprite.canvas, x - s.sprite.dim / 2, y - s.sprite.dim / 2, s.sprite.dim, s.sprite.dim);
-          }
-          cx.globalAlpha = 1;
-        };
-
-        resize();
-        draw(elapsed);
-        addEventListener("resize", () => { resize(); draw(elapsed); }, { passive: true });
-        addEventListener("themechange", () => { build(); draw(elapsed); });
-        if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { build(); draw(elapsed); });
-        if (!reduceBg) {
-          const loop = (now: number) => {
-            if (!last) last = now;
-            let dt = (now - last) / 1000;
-            last = now;
-            // cap the step so a long stall (background tab, scroll jank, GC pause)
-            // can never fast-forward the animation by a visible jump
-            if (dt > 0.05) dt = 0.05;
-            elapsed += dt;
-            draw(elapsed);
-            requestAnimationFrame(loop);
-          };
-          requestAnimationFrame(loop);
         }
       }
     </script>

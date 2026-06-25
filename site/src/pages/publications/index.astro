@@ -43,7 +43,7 @@ const recent = (await getCollection("publications"))
                 ))}
                 {" · "}<em>{p.year}</em>
               </p>
-              <p class="pub-venue-line"><em>{p.venue}</em></p>
+              {p.venue && <p class="pub-venue-line"><em>{p.venue}</em></p>}
             </div>
           </li>
         ))}
