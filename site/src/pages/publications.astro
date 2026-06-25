@@ -1,0 +1,106 @@
+---
+import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+const pubs = (await getCollection("publications"))
+  .map((p) => p.data)
+  .sort((a, b) => b.year - a.year);
+
+const years = [...new Set(pubs.map((p) => p.year))].sort((a, b) => b - a);
+const byYear = years.map((y) => ({ year: y, items: pubs.filter((p) => p.year === y) }));
+---
+
+<Base title="Publications — Sen He" description="Publications by Sen He, University of Arizona." dimBg={true}>
+  <section class="section pubs">
+    <div class="wrap">
+      <p class="eyebrow reveal">Publications</p>
+      <h1 class="reveal" style="margin-bottom:0.5rem;">Publications</h1>
+      <p class="reveal" style="color:var(--muted);max-width:48ch;margin-bottom:3.5rem;">
+        Peer-reviewed work in software engineering, performance, and computer
+        vision. Titles link to the publisher where a DOI is available.
+      </p>
+
+      {byYear.map((group) => (
+        <div class="year-group reveal">
+          <h2 class="year">{group.year}</h2>
+          <ul class="pub-list">
+            {group.items.map((p) => (
+              <li class="pub">
+                <span class={`badge badge-${p.type}`}>{p.type === "journal" ? "Journal" : "Conference"}</span>
+                <div>
+                  {p.doi ? (
+                    <a class="pub-title" href={`https://doi.org/${p.doi}`}>{p.title}</a>
+                  ) : (
+                    <span class="pub-title">{p.title}</span>
+                  )}
+                  <p class="pub-meta">
+                    {p.authors.map((a, i) => (
+                      <span class={a === "Sen He" ? "me" : undefined}>{a}{i < p.authors.length - 1 ? ", " : ""}</span>
+                    ))}
+                  </p>
+                  <p class="pub-venue-line"><em>{p.venue}</em></p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+
+      <a href="/" class="link reveal" style="display:inline-block;margin-top:2rem;">← Back home</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .pubs { padding-top: clamp(7rem, 12vw, 10rem); }
+  .year-group { margin-bottom: 3.5rem; }
+  .year {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  :root[data-theme="dark"] .year { color: var(--accent-2); }
+  .pub-list { list-style: none; padding: 0; }
+  .pub {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: 1.25rem;
+    padding: 1.1rem 0;
+    align-items: start;
+  }
+  .badge {
+    justify-self: start;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--glass-border);
+    background: var(--surface);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .badge-journal { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+  :root[data-theme="dark"] .badge-journal { color: var(--accent-2); }
+  .pub-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    color: inherit;
+    text-decoration: none;
+    display: inline-block;
+    transition: color 0.2s var(--ease);
+  }
+  a.pub-title:hover { color: var(--accent); }
+  :root[data-theme="dark"] a.pub-title:hover { color: var(--accent-2); }
+  .pub-meta { color: var(--muted); font-size: 0.9rem; margin-top: 0.4rem; line-height: 1.5; }
+  .pub-meta .me { color: var(--ink); font-weight: 600; }
+  .pub-venue-line { color: var(--muted); font-size: 0.9rem; margin-top: 0.15rem; }
+  @media (max-width: 640px) {
+    .pub { grid-template-columns: 1fr; gap: 0.6rem; }
+  }
+</style>

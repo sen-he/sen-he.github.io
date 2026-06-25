@@ -1,0 +1,139 @@
+[
+  {
+    "id": "uddin-2026-microservice-logs",
+    "title": "Microservice logs analysis employing AI: A systematic literature review",
+    "authors": ["Md Arfan Uddin", "Shakthi Weerasinghe", "Darek Gajewski", "Melika Akbarsharifi", "Roxana Akbarsharifi", "Christopher Stoner", "Tomás Cerný", "Sen He"],
+    "year": 2026,
+    "type": "journal",
+    "venue": "Journal of Systems and Software, 236: 112786",
+    "doi": "10.1016/j.jss.2026.112786",
+    "featured": true,
+    "tags": ["Microservices", "Log Analysis", "AI", "Systematic Review"]
+  },
+  {
+    "id": "li-2026-uwb-posture",
+    "title": "UWB-PostureGuard: A Privacy-Preserving RF Sensing System for Continuous Ergonomic Sitting Posture Monitoring",
+    "authors": ["Haotang Li", "Zhenyu Qi", "Sen He", "Kebin Peng", "Sheng Tan", "Yili Ren", "Tomás Cerný", "Jiyue Zhao", "Zi Wang"],
+    "year": 2026,
+    "type": "conference",
+    "venue": "HICSS 2026",
+    "featured": true,
+    "tags": ["UWB", "Privacy", "IoT", "Posture Monitoring"]
+  },
+  {
+    "id": "li-2026-ai-codegen",
+    "title": "Performance analysis of AI-generated code: A case study of Copilot, Copilot Chat, CodeLlaMa, and DeepSeek-Coder models",
+    "authors": ["Shuang Li", "Yuntao Cheng", "Jinfu Chen", "Jifeng Xuan", "Sen He", "Weiyi Shang"],
+    "year": 2026,
+    "type": "journal",
+    "venue": "Empirical Software Engineering, 31(3): 62",
+    "doi": "10.1007/s10664-025-10776-1",
+    "featured": true,
+    "tags": ["AI Code Generation", "Performance Analysis", "LLM"]
+  },
+  {
+    "id": "qi-2026-vr-llm",
+    "title": "Harnessing large language models for virtual reality exploration testing: a case study",
+    "authors": ["Zhenyu Qi", "Haotang Li", "Hao Qin", "Kebin Peng", "Sen He", "Xue Qin"],
+    "year": 2026,
+    "type": "journal",
+    "venue": "Automated Software Engineering, 33(1): 7",
+    "doi": "10.1007/s10515-025-00535-3",
+    "featured": true,
+    "tags": ["LLM", "VR", "Software Testing"]
+  },
+  {
+    "id": "chen-2026-dynamiclip",
+    "title": "DynamicLip: Shape-Independent Continuous Authentication via Lip Articulator Dynamics",
+    "authors": ["Huashan Chen", "Yifan Xu", "Yue Feng", "Ming Jian", "Feng Liu", "Pengfei Hu", "Kebin Peng", "Sen He", "Zi Wang"],
+    "year": 2026,
+    "type": "journal",
+    "venue": "IEEE Transactions on Mobile Computing, 25(3): 4063-4076",
+    "doi": "10.1109/TMC.2025.3624155",
+    "featured": true,
+    "tags": ["Authentication", "Mobile Computing"]
+  },
+  {
+    "id": "chen-2025-vr-clones",
+    "title": "Unveiling code clone patterns in open source VR software: an empirical study",
+    "authors": ["Huashan Chen", "Zisheng Huang", "Yifan Xu", "Wenjie Huang", "Xuheng Wang", "Jinfu Chen", "Haotang Li", "Kebin Peng", "Feng Liu", "Sen He"],
+    "year": 2025,
+    "type": "journal",
+    "venue": "Automated Software Engineering, 32(2): 72",
+    "doi": "10.1007/s10515-025-00536-2",
+    "featured": true,
+    "tags": ["Code Clones", "VR", "Empirical Study"]
+  },
+  {
+    "id": "mani-2025-graphql",
+    "title": "GraphQL-Aware Healing in Service-Oriented Architectures via Multi-Signal Learning",
+    "authors": ["Nariman Mani", "Sen He", "Tomás Cerný"],
+    "year": 2025,
+    "type": "conference",
+    "venue": "IEEE Symposium on Service-Oriented System Engineering (SOSE), 2025",
+    "doi": "10.1109/SOSE67019.2025.00021",
+    "featured": false,
+    "tags": ["GraphQL", "Microservices", "Self-Healing"]
+  },
+  {
+    "id": "leng-2025-brain-autism",
+    "title": "Self-Supervised Graph Transformer with Contrastive Learning for Brain Connectivity Analysis Towards Improving Autism Detection",
+    "authors": ["Yicheng Leng", "Syed Muhammad Anwar", "Islem Rekik", "Sen He", "Eungjoo Lee"],
+    "year": 2025,
+    "type": "conference",
+    "venue": "IEEE International Symposium on Biomedical Imaging (ISBI), 1-5",
+    "doi": "10.1109/ISBI60581.2025.10981292",
+    "featured": false,
+    "tags": ["Brain Connectivity", "Autism Detection", "Graph Transformer", "Medical Imaging"]
+  },
+  {
+    "id": "liu-2024-eurosys",
+    "title": "Improving Resource and Energy Efficiency for Cloud 3D through Excessive Rendering Reduction",
+    "authors": ["Tianyi Liu", "Jerry Lucas", "Sen He", "Tongping Liu", "Xiaoyin Wang", "Wei Wang"],
+    "year": 2024,
+    "type": "conference",
+    "venue": "European Conference on Computer Systems (EuroSys), 2024",
+    "featured": true,
+    "tags": ["Cloud Computing", "Performance Engineering"]
+  },
+  {
+    "id": "li-2024-issre",
+    "title": "Assessing the performance of AI-generated code: A case study on GitHub Copilot",
+    "authors": ["Shuang Li", "Yuntao Cheng", "Jinfu Chen", "Jifeng Xuan", "Sen He", "Weiyi Shang"],
+    "year": 2024,
+    "type": "conference",
+    "venue": "IEEE 35th International Symposium on Software Reliability Engineering (ISSRE), 216-227, 2024",
+    "featured": true,
+    "tags": ["AI Code Generation", "Performance Analysis", "Software Testing"]
+  },
+  {
+    "id": "liu-2022-eccv",
+    "title": "A Cloud 3D Dataset and Application-Specific Learned Image Compression in Cloud 3D",
+    "authors": ["Tianyi Liu", "Sen He", "Vinoh Kumaran Jayakumar", "Wei Wang"],
+    "year": 2022,
+    "type": "conference",
+    "venue": "European Conference on Computer Vision (ECCV), 2022",
+    "featured": true,
+    "tags": ["Computer Vision", "Cloud Computing", "Deep Learning"]
+  },
+  {
+    "id": "he-2021-ase",
+    "title": "Performance Testing for Cloud Computing with Dependent Data Bootstrapping",
+    "authors": ["Sen He", "Tianyi Liu", "Palden Lama", "Jaewoo Lee", "In Kee Kim", "Wei Wang"],
+    "year": 2021,
+    "type": "conference",
+    "venue": "The 36th IEEE/ACM International Conference on Automated Software Engineering (ASE), 2021",
+    "featured": true,
+    "tags": ["Cloud Computing", "Performance Testing", "Software Engineering"]
+  },
+  {
+    "id": "liu-2020-micro",
+    "title": "A benchmarking framework for interactive 3D applications in the cloud",
+    "authors": ["Tianyi Liu", "Sen He", "Sunzhou Huang", "Danny Tsang", "Lingjia Tang", "Jason Mars", "Wei Wang"],
+    "year": 2020,
+    "type": "conference",
+    "venue": "53rd Annual IEEE/ACM International Symposium on Microarchitecture (MICRO), 881-894, 2020",
+    "featured": true,
+    "tags": ["Cloud Computing", "Performance Testing"]
+  }
+]
