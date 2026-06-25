@@ -119,6 +119,21 @@ const papers = [
     padding-block: 8rem 4rem;
     overflow: hidden;
   }
+  /* scrim: keeps the copy readable over the bold neon background */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      100deg,
+      var(--bg) 20%,
+      color-mix(in srgb, var(--bg) 55%, transparent) 44%,
+      transparent 68%
+    );
+  }
+  .hero > .wrap { position: relative; z-index: 1; }
   .hero-grid {
     display: grid;
     grid-template-columns: 1.4fr 0.9fr;
@@ -143,6 +158,7 @@ const papers = [
   }
   .scroll-hint {
     position: absolute;
+    z-index: 1;
     bottom: 1.6rem;
     left: var(--pad);
     font-family: var(--font-mono);

@@ -174,124 +174,112 @@ import "../styles/global.css";
       }
     </script>
     <script>
-      // Animated background: a Tucson saguaro rendered as a twinkling
-      // constellation / point-cloud (futuristic, sci-fi, also reads as an
-      // AI network graph), over a drifting starfield with a slow scan line.
-      // Draws one frame immediately so it shows even where rAF is paused;
-      // loops only when motion is allowed.
+      // Animated background: a bold NEON saguaro (Tucson) glowing like a neon
+      // tube, surrounded by drifting neon AI/math symbols over a faint grid.
+      // Glow is pre-rendered to offscreen sprites once (cheap to composite),
+      // then flickered per frame. Draws one frame immediately (survives paused
+      // rAF / headless); loops only when motion is allowed.
       const cv = document.getElementById("bg") as HTMLCanvasElement | null;
       const cx = cv && cv.getContext("2d");
       if (cv && cx) {
         const reduceBg = matchMedia("(prefers-reduced-motion: reduce)").matches;
         const DPR = Math.min(window.devicePixelRatio || 1, 2);
-        let W = 0, H = 0;
+        let W = 0, H = 0, dark = true;
+        let sag: any = null, syms: any[] = [];
+        const SYMS = ["∑","∫","∂","∇","π","λ","θ","∞","Δ","σ","µ","Φ","∮","≈","∝","∈","ℝ","∀","∇θ","P(y|x)","eˣ","wᵀx","argmax","∂L"];
 
-        // Sample nodes from a saguaro silhouette (trunk + a low-left and a
-        // higher-right arm), then precompute a stable neighbour network.
-        const saguaro = (() => {
-          const o = document.createElement("canvas");
-          o.width = 100; o.height = 140;
-          const oc = o.getContext("2d")!;
-          const bar = (x, y, w, h, r) => {
-            oc.beginPath();
-            oc.moveTo(x + r, y);
-            oc.arcTo(x + w, y, x + w, y + h, r);
-            oc.arcTo(x + w, y + h, x, y + h, r);
-            oc.arcTo(x, y + h, x, y, r);
-            oc.arcTo(x, y, x + w, y, r);
-            oc.fill();
-          };
-          oc.fillStyle = "#fff";
-          bar(43, 20, 14, 116, 7);  // trunk
-          bar(22, 64, 26, 12, 6);   // left arm — elbow
-          bar(22, 40, 12, 30, 6);   // left arm — rises
-          bar(54, 52, 26, 12, 6);   // right arm — elbow
-          bar(70, 24, 12, 32, 6);   // right arm — rises higher
-          const d = oc.getImageData(0, 0, 100, 140).data;
-          const pts: any[] = [];
-          let tries = 0;
-          while (pts.length < 130 && tries < 9000) {
-            tries++;
-            const x = Math.floor(Math.random() * 100);
-            const y = Math.floor(Math.random() * 140);
-            if (d[(y * 100 + x) * 4 + 3] > 12)
-              pts.push({ nx: x / 100, ny: y / 140, ph: Math.random() * 6.28, sp: 0.5 + Math.random() });
-          }
-          const pairs: any[] = [];
-          for (let i = 0; i < pts.length; i++)
-            for (let j = i + 1; j < pts.length; j++) {
-              const dd = Math.hypot(pts[i].nx - pts[j].nx, pts[i].ny - pts[j].ny);
-              if (dd < 0.095) pairs.push([i, j, dd]);
-            }
-          return { pts, pairs };
-        })();
-
-        let stars: any[] = [];
-        const buildStars = () => {
-          stars = [];
-          const n = Math.round((W * H) / 26000);
-          for (let i = 0; i < n; i++)
-            stars.push({ x: Math.random(), y: Math.random(), r: Math.random() * 1.1 + 0.3, ph: Math.random() * 6.28, sp: 0.3 + Math.random() * 0.8 });
+        // pre-render the neon saguaro to an offscreen sprite
+        const buildSaguaro = () => {
+          const targetH = Math.min(H * 0.82, 640);
+          const w = targetH * 0.78, pad = targetH * 0.18;
+          const cw = Math.ceil(w + pad * 2), ch = Math.ceil(targetH + pad * 2);
+          const c = document.createElement("canvas");
+          c.width = cw * DPR; c.height = ch * DPR;
+          const g = c.getContext("2d")!;
+          g.scale(DPR, DPR); g.translate(pad, pad);
+          const tube = dark ? "#c2e23a" : "#84991f";
+          const core = dark ? "#eef7c8" : "#9cb43c";
+          const cx0 = w * 0.5, hh = targetH;
+          const paths = [
+            { p: [[cx0, hh * 0.99], [cx0, hh * 0.07]], wd: w * 0.17 },                       // trunk
+            { p: [[cx0, hh * 0.66], [w * 0.20, hh * 0.66], [w * 0.20, hh * 0.42]], wd: w * 0.12 }, // left arm
+            { p: [[cx0, hh * 0.52], [w * 0.82, hh * 0.52], [w * 0.82, hh * 0.25]], wd: w * 0.12 }, // right arm
+          ];
+          g.lineCap = "round"; g.lineJoin = "round"; g.shadowColor = tube;
+          const stroke = (pts) => { g.beginPath(); g.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) g.lineTo(pts[i][0], pts[i][1]); g.stroke(); };
+          g.strokeStyle = tube;
+          g.globalAlpha = dark ? 0.45 : 0.28; g.shadowBlur = dark ? 38 : 14;
+          for (const t of paths) { g.lineWidth = t.wd; stroke(t.p); }
+          g.globalAlpha = dark ? 0.82 : 0.5; g.shadowBlur = dark ? 16 : 6;
+          for (const t of paths) { g.lineWidth = t.wd; stroke(t.p); }
+          g.shadowBlur = 0; g.strokeStyle = core; g.globalAlpha = dark ? 0.78 : 0.45;
+          for (const t of paths) { g.lineWidth = Math.max(2, t.wd * 0.32); stroke(t.p); }
+          sag = { canvas: c, w: cw, h: ch };
         };
+
+        const buildSymbol = (ch: string, size: number) => {
+          const pad = size * 0.8, dim = Math.ceil(size + pad * 2);
+          const c = document.createElement("canvas");
+          c.width = dim * DPR; c.height = dim * DPR;
+          const g = c.getContext("2d")!;
+          g.scale(DPR, DPR);
+          const col = dark ? "#b6d43a" : "#7f9618";
+          g.font = `${size}px "JetBrains Mono", ui-monospace, monospace`;
+          g.textAlign = "center"; g.textBaseline = "middle";
+          g.fillStyle = col; g.shadowColor = col;
+          g.globalAlpha = dark ? 0.55 : 0.38; g.shadowBlur = dark ? 22 : 8; g.fillText(ch, dim / 2, dim / 2);
+          g.globalAlpha = dark ? 0.95 : 0.6; g.shadowBlur = dark ? 6 : 2; g.fillText(ch, dim / 2, dim / 2);
+          return { canvas: c, dim };
+        };
+        const buildSymbols = () => {
+          syms = [];
+          const n = Math.max(9, Math.round((W * H) / 115000));
+          for (let i = 0; i < n; i++) {
+            const ch = SYMS[Math.floor(Math.random() * SYMS.length)];
+            const size = 17 + Math.random() * 24;
+            syms.push({ sprite: buildSymbol(ch, size), x: Math.random(), y: Math.random(), ph: Math.random() * 6.28, sp: 3 + Math.random() * 3, dphx: Math.random() * 6.28, dphy: Math.random() * 6.28 });
+          }
+        };
+        const build = () => { dark = document.documentElement.dataset.theme === "dark"; buildSaguaro(); buildSymbols(); };
         const resize = () => {
           W = innerWidth; H = innerHeight;
           cv.width = W * DPR; cv.height = H * DPR;
           cv.style.width = W + "px"; cv.style.height = H + "px";
           cx.setTransform(DPR, 0, 0, DPR, 0, 0);
-          buildStars();
+          build();
         };
-        const rect = () => {
-          const h = Math.min(H * 0.82, 600);
-          const w = h * (100 / 140);
-          const cxp = W * (W > 900 ? 0.72 : 0.5);
-          return { x: cxp - w / 2, y: (H - h) / 2, w, h };
-        };
+
         const draw = (t: number) => {
-          const dark = document.documentElement.dataset.theme === "dark";
-          const node = dark ? "152,184,47" : "104,124,18";
           cx.clearRect(0, 0, W, H);
-          const R = rect();
-          const gx = R.x + R.w / 2, gy = R.y + R.h * 0.45;
-          const gl = cx.createRadialGradient(gx, gy, 0, gx, gy, R.h * 0.95);
-          gl.addColorStop(0, dark ? "rgba(152,184,47,0.11)" : "rgba(120,140,30,0.06)");
-          gl.addColorStop(1, "rgba(0,0,0,0)");
-          cx.fillStyle = gl; cx.fillRect(0, 0, W, H);
-
-          for (const s of stars) {
-            const tw = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * s.sp + s.ph));
-            cx.globalAlpha = (dark ? 0.5 : 0.3) * tw;
-            cx.fillStyle = `rgb(${node})`;
-            cx.beginPath(); cx.arc(s.x * W, s.y * H, s.r, 0, 6.2832); cx.fill();
+          // faint blueprint grid
+          cx.globalAlpha = dark ? 0.04 : 0.05;
+          cx.strokeStyle = dark ? "#46571f" : "#c7d2a3"; cx.lineWidth = 1;
+          const step = 68;
+          cx.beginPath();
+          for (let x = step; x < W; x += step) { cx.moveTo(x, 0); cx.lineTo(x, H); }
+          for (let y = step; y < H; y += step) { cx.moveTo(0, y); cx.lineTo(W, y); }
+          cx.stroke();
+          // neon saguaro
+          if (sag) {
+            const cxp = W * (W > 900 ? 0.82 : 0.5), cyp = H * 0.5;
+            cx.globalAlpha = 0.86 + 0.14 * Math.sin(t * 3.2) + 0.04 * Math.sin(t * 17);
+            cx.drawImage(sag.canvas, cxp - sag.w / 2, cyp - sag.h / 2, sag.w, sag.h);
           }
-
-          const jx = (p) => R.x + p.nx * R.w + Math.sin(t * 0.5 + p.ph) * 3;
-          const jy = (p) => R.y + p.ny * R.h + Math.cos(t * 0.45 + p.ph) * 3;
-          cx.lineWidth = 1;
-          for (const pr of saguaro.pairs) {
-            const a = saguaro.pts[pr[0]], b = saguaro.pts[pr[1]];
-            cx.globalAlpha = (dark ? 0.2 : 0.13) * (1 - pr[2] / 0.095);
-            cx.strokeStyle = `rgb(${node})`;
-            cx.beginPath(); cx.moveTo(jx(a), jy(a)); cx.lineTo(jx(b), jy(b)); cx.stroke();
-          }
-          for (const p of saguaro.pts) {
-            const tw = 0.4 + 0.6 * (0.5 + 0.5 * Math.sin(t * p.sp + p.ph));
-            cx.globalAlpha = (dark ? 0.95 : 0.55) * tw;
-            cx.fillStyle = `rgb(${node})`;
-            cx.beginPath(); cx.arc(jx(p), jy(p), 1.7, 0, 6.2832); cx.fill();
+          // drifting neon symbols
+          for (const s of syms) {
+            const x = (s.x + Math.sin(t * 0.12 + s.dphx) * 0.03) * W;
+            const y = (s.y + Math.cos(t * 0.1 + s.dphy) * 0.04) * H;
+            cx.globalAlpha = (dark ? 1 : 0.8) * (0.62 + 0.38 * (0.5 + 0.5 * Math.sin(t * s.sp + s.ph)));
+            cx.drawImage(s.sprite.canvas, x - s.sprite.dim / 2, y - s.sprite.dim / 2, s.sprite.dim, s.sprite.dim);
           }
           cx.globalAlpha = 1;
-
-          const scanY = ((t * 0.05) % 1) * H;
-          const sg = cx.createLinearGradient(0, scanY - 50, 0, scanY + 50);
-          sg.addColorStop(0, `rgba(${node},0)`);
-          sg.addColorStop(0.5, `rgba(${node},${dark ? 0.06 : 0.04})`);
-          sg.addColorStop(1, `rgba(${node},0)`);
-          cx.fillStyle = sg; cx.fillRect(0, scanY - 50, W, 100);
         };
+
         resize();
         draw(0);
         addEventListener("resize", () => { resize(); draw(performance.now() / 1000); }, { passive: true });
-        addEventListener("themechange", () => draw(performance.now() / 1000));
+        addEventListener("themechange", () => { build(); draw(performance.now() / 1000); });
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { build(); draw(performance.now() / 1000); });
         if (!reduceBg) {
           const loop = (now: number) => { draw(now / 1000); requestAnimationFrame(loop); };
           requestAnimationFrame(loop);
