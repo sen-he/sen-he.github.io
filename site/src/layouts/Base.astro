@@ -203,12 +203,15 @@ import "../styles/global.css";
             oc.arcTo(x, y + bh, x, y, r); oc.arcTo(x, y, x + bw, y, r); oc.fill();
           };
           oc.fillStyle = "#fff";
-          bar(43, 20, 14, 116, 7); bar(22, 64, 26, 12, 6); bar(22, 40, 12, 30, 6);
-          bar(54, 52, 26, 12, 6); bar(70, 24, 12, 32, 6);
+          bar(43, 12, 18, 128, 9); // trunk (tall, dominant)
+          bar(24, 84, 25, 15, 7);  // left arm — reaches out
+          bar(24, 54, 15, 32, 7);  // left arm — curves up (lower)
+          bar(58, 66, 25, 15, 7);  // right arm — reaches out
+          bar(68, 36, 15, 32, 7);  // right arm — curves up (higher)
           const d = oc.getImageData(0, 0, 100, 140).data;
           const nodes: any[] = [];
           let tries = 0;
-          while (nodes.length < 92 && tries < 8000) {
+          while (nodes.length < 112 && tries < 9000) {
             tries++;
             const px = Math.floor(Math.random() * 100), py = Math.floor(Math.random() * 140);
             if (d[(py * 100 + px) * 4 + 3] > 12)
@@ -218,7 +221,7 @@ import "../styles/global.css";
           for (let i = 0; i < nodes.length; i++)
             for (let j = i + 1; j < nodes.length; j++) {
               const dd = Math.hypot(nodes[i].nx - nodes[j].nx, nodes[i].ny - nodes[j].ny);
-              if (dd < 0.105) pairs.push([i, j, dd]);
+              if (dd < 0.1) pairs.push([i, j, dd]);
             }
           const col = dark ? "#b6d43a" : "#566b0f";
           // glowing line network
@@ -229,7 +232,7 @@ import "../styles/global.css";
           lg.strokeStyle = col; lg.shadowColor = col; lg.lineWidth = 1; lg.lineCap = "round";
           for (const pr of pairs) {
             const a = nodes[pr[0]], b = nodes[pr[1]];
-            lg.globalAlpha = (dark ? 0.5 : 0.42) * (1 - pr[2] / 0.105);
+            lg.globalAlpha = (dark ? 0.5 : 0.42) * (1 - pr[2] / 0.1);
             lg.shadowBlur = dark ? 7 : 3;
             lg.beginPath(); lg.moveTo(a.nx * boxW, a.ny * boxH); lg.lineTo(b.nx * boxW, b.ny * boxH); lg.stroke();
           }
@@ -290,12 +293,14 @@ import "../styles/global.css";
           cx.stroke();
           // neon saguaro constellation
           if (sag) {
-            const cxp = W * (W > 900 ? 0.78 : 0.5), cyp = H * 0.5;
+            const cxp = W * (W > 900 ? 0.64 : 0.5), cyp = H * 0.5;
             const left = cxp - sag.boxW / 2, top = cyp - sag.boxH / 2;
             cx.globalAlpha = 0.85 + 0.12 * Math.sin(t * 0.5); // slow, gentle
             cx.drawImage(sag.lineCanvas, left - 26, top - 26, sag.lw, sag.lh);
+            // a slow band of light sweeps the saguaro: points shine in turn
             for (const nd of sag.nodes) {
-              cx.globalAlpha = 0.5 + 0.45 * (0.5 + 0.5 * Math.sin(t * nd.sp + nd.ph));
+              const wave = Math.sin(t * 0.9 - nd.ny * 5.5 - nd.nx * 2 + nd.ph * 0.5);
+              cx.globalAlpha = 0.28 + 0.72 * (0.5 + 0.5 * wave);
               cx.drawImage(sag.dot, left + nd.nx * sag.boxW - sag.ds / 2, top + nd.ny * sag.boxH - sag.ds / 2, sag.ds, sag.ds);
             }
           }
