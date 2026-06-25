@@ -1,0 +1,515 @@
+[
+  {
+    "id": "chen-2026-dynamiclip",
+    "title": "DynamicLip: Shape-Independent Continuous Authentication via Lip Articulator Dynamics",
+    "authors": [
+      "Huashan Chen",
+      "Yifan Xu",
+      "Yue Feng",
+      "Ming Jian",
+      "Feng Liu",
+      "Pengfei Hu",
+      "Kebin Peng",
+      "Sen He",
+      "Zi Wang"
+    ],
+    "year": 2026,
+    "type": "journal",
+    "venue": "IEEE Transactions on Mobile Computing, 25(3): 4063-4076",
+    "doi": "10.1109/TMC.2025.3624155",
+    "featured": true,
+    "tags": [
+      "Authentication",
+      "Mobile Computing"
+    ]
+  },
+  {
+    "id": "zhao2026geospatial",
+    "title": "Geospatial Analysis of Wildfire Impact and Predictive Modeling of Susceptibility: A Case Study of Maui, Hawaii and California",
+    "authors": [
+      "Jiyue Zhao",
+      "Shiwei Fang",
+      "Sheng Tan",
+      "Sen He",
+      "Zi Wang"
+    ],
+    "year": 2026,
+    "type": "journal",
+    "venue": "",
+    "featured": false,
+    "tags": []
+  },
+  {
+    "id": "qi-2026-vr-llm",
+    "title": "Harnessing large language models for virtual reality exploration testing: a case study",
+    "authors": [
+      "Zhenyu Qi",
+      "Haotang Li",
+      "Hao Qin",
+      "Kebin Peng",
+      "Sen He",
+      "Xue Qin"
+    ],
+    "year": 2026,
+    "type": "journal",
+    "venue": "Automated Software Engineering, 33(1): 7",
+    "doi": "10.1007/s10515-025-00535-3",
+    "featured": true,
+    "tags": [
+      "LLM",
+      "VR",
+      "Software Testing"
+    ]
+  },
+  {
+    "id": "uddin-2026-microservice-logs",
+    "title": "Microservice logs analysis employing AI: A systematic literature review",
+    "authors": [
+      "Md Arfan Uddin",
+      "Shakthi Weerasinghe",
+      "Darek Gajewski",
+      "Melika Akbarsharifi",
+      "Roxana Akbarsharifi",
+      "Christopher Stoner",
+      "Tomás Cerný",
+      "Sen He"
+    ],
+    "year": 2026,
+    "type": "journal",
+    "venue": "Journal of Systems and Software, 236: 112786",
+    "doi": "10.1016/j.jss.2026.112786",
+    "featured": true,
+    "tags": [
+      "Microservices",
+      "Log Analysis",
+      "AI",
+      "Systematic Review"
+    ]
+  },
+  {
+    "id": "li-2026-ai-codegen",
+    "title": "Performance analysis of AI-generated code: A case study of Copilot, Copilot Chat, CodeLlaMa, and DeepSeek-Coder models",
+    "authors": [
+      "Shuang Li",
+      "Yuntao Cheng",
+      "Jinfu Chen",
+      "Jifeng Xuan",
+      "Sen He",
+      "Weiyi Shang"
+    ],
+    "year": 2026,
+    "type": "journal",
+    "venue": "Empirical Software Engineering, 31(3): 62",
+    "doi": "10.1007/s10664-025-10776-1",
+    "featured": true,
+    "tags": [
+      "AI Code Generation",
+      "Performance Analysis",
+      "LLM"
+    ]
+  },
+  {
+    "id": "li-2026-uwb-posture",
+    "title": "UWB-PostureGuard: A Privacy-Preserving RF Sensing System for Continuous Ergonomic Sitting Posture Monitoring",
+    "authors": [
+      "Haotang Li",
+      "Zhenyu Qi",
+      "Sen He",
+      "Kebin Peng",
+      "Sheng Tan",
+      "Yili Ren",
+      "Tomás Cerný",
+      "Jiyue Zhao",
+      "Zi Wang"
+    ],
+    "year": 2026,
+    "type": "conference",
+    "venue": "HICSS 2026",
+    "featured": true,
+    "tags": [
+      "UWB",
+      "Privacy",
+      "IoT",
+      "Posture Monitoring"
+    ]
+  },
+  {
+    "id": "chen2026multi",
+    "title": "Multi-LLM Orchestration for High-Quality Code Generation: Exploiting Complementary Model Strengths",
+    "authors": [
+      "Huashan Chen",
+      "Zhenyu Qi",
+      "Haotang Li",
+      "Hong Chen",
+      "Jinfu Chen",
+      "Kebin Peng",
+      "In Kee Kim",
+      "Kyu Hyung Lee",
+      "Sen He",
+      "Weiyi Shang"
+    ],
+    "year": 2026,
+    "type": "preprint",
+    "venue": "arXiv preprint",
+    "featured": false,
+    "tags": []
+  },
+  {
+    "id": "peng2026physdepth",
+    "title": "PhysDepth: Plug-and-Play Physical Refinement for Monocular Depth Estimation in Challenging Environments",
+    "authors": [
+      "Kebin Peng",
+      "Haotang Li",
+      "Zhenyu Qi",
+      "Huashan Chen",
+      "Zi Wang",
+      "Wei Zhang",
+      "Sen He",
+      "Huanrui Yang",
+      "Qing Guo"
+    ],
+    "year": 2026,
+    "type": "preprint",
+    "venue": "arXiv preprint",
+    "featured": false,
+    "tags": []
+  },
+  {
+    "id": "nookala2025quantification",
+    "title": "Quantification of Suspended Sediment Concentration Using Laboratory Experimental Data and Machine Learning Model",
+    "authors": [
+      "Sathvik Reddy Nookala",
+      "Jennifer Guohong Duan",
+      "Kun Qi",
+      "Jason Pacheco",
+      "Sen He"
+    ],
+    "year": 2025,
+    "type": "journal",
+    "venue": "Water",
+    "featured": false,
+    "tags": []
+  },
+  {
+    "id": "chen-2025-vr-clones",
+    "title": "Unveiling code clone patterns in open source VR software: an empirical study",
+    "authors": [
+      "Huashan Chen",
+      "Zisheng Huang",
+      "Yifan Xu",
+      "Wenjie Huang",
+      "Xuheng Wang",
+      "Jinfu Chen",
+      "Haotang Li",
+      "Kebin Peng",
+      "Feng Liu",
+      "Sen He"
+    ],
+    "year": 2025,
+    "type": "journal",
+    "venue": "Automated Software Engineering, 32(2): 72",
+    "doi": "10.1007/s10515-025-00536-2",
+    "featured": true,
+    "tags": [
+      "Code Clones",
+      "VR",
+      "Empirical Study"
+    ]
+  },
+  {
+    "id": "mani-2025-graphql",
+    "title": "GraphQL-Aware Healing in Service-Oriented Architectures via Multi-Signal Learning",
+    "authors": [
+      "Nariman Mani",
+      "Sen He",
+      "Tomás Cerný"
+    ],
+    "year": 2025,
+    "type": "conference",
+    "venue": "IEEE Symposium on Service-Oriented System Engineering (SOSE), 2025",
+    "doi": "10.1109/SOSE67019.2025.00021",
+    "featured": false,
+    "tags": [
+      "GraphQL",
+      "Microservices",
+      "Self-Healing"
+    ]
+  },
+  {
+    "id": "leng-2025-brain-autism",
+    "title": "Self-Supervised Graph Transformer with Contrastive Learning for Brain Connectivity Analysis Towards Improving Autism Detection",
+    "authors": [
+      "Yicheng Leng",
+      "Syed Muhammad Anwar",
+      "Islem Rekik",
+      "Sen He",
+      "Eungjoo Lee"
+    ],
+    "year": 2025,
+    "type": "conference",
+    "venue": "IEEE International Symposium on Biomedical Imaging (ISBI), 1-5",
+    "doi": "10.1109/ISBI60581.2025.10981292",
+    "featured": false,
+    "tags": [
+      "Brain Connectivity",
+      "Autism Detection",
+      "Graph Transformer",
+      "Medical Imaging"
+    ]
+  },
+  {
+    "id": "xu2025empirical",
+    "title": "An empirical study on virtual reality software security weaknesses",
+    "authors": [
+      "Yifan Xu",
+      "Jinfu Chen",
+      "Zhenyu Qi",
+      "Huashan Chen",
+      "Junyi Wang",
+      "Pengfei Hu",
+      "Feng Liu",
+      "Sen He"
+    ],
+    "year": 2025,
+    "type": "preprint",
+    "venue": "arXiv preprint",
+    "featured": false,
+    "tags": []
+  },
+  {
+    "id": "bodepudi2025diagnosing",
+    "title": "Diagnosing and Resolving Android Applications Building Issues: An Empirical Study",
+    "authors": [
+      "Lakshmi Priya Bodepudi",
+      "Yutong Zhao",
+      "Ming Quan Fu",
+      "Yuanyuan Wu",
+      "Sen He",
+      "Yu Zhao"
+    ],
+    "year": 2025,
+    "type": "preprint",
+    "venue": "arXiv preprint",
+    "featured": false,
+    "tags": []
+  },
+  {
+    "id": "li2025mssseg",
+    "title": "MSSSeg: Learning Multi-Scale Structural Complexity for Self-Supervised Segmentation",
+    "authors": [
+      "Haotang Li",
+      "Zhenyu Qi",
+      "Hao Qin",
+      "Huanrui Yang",
+      "Sen He",
+      "Kebin Peng"
+    ],
+    "year": 2025,
+    "type": "preprint",
+    "venue": "arXiv preprint",
+    "featured": false,
+    "tags": []
+  },
+  {
+    "id": "zhang2024learning",
+    "title": "A Learning-Based POMDP Approach for Adaptive Cyber Defense Against Multi-Stage Attacks",
+    "authors": [
+      "Yuantian Zhang",
+      "Weixia Cai",
+      "Huashan Chen",
+      "Zhenyu Qi",
+      "Hong Chen",
+      "Feng Liu",
+      "Sen He"
+    ],
+    "year": 2024,
+    "type": "conference",
+    "venue": "The 26th IEEE International Conference on High Performance Computing and Communications",
+    "featured": false,
+    "tags": []
+  },
+  {
+    "id": "huang2024study",
+    "title": "A study of code clone on open source vr software",
+    "authors": [
+      "Wenjie Huang",
+      "Jinfu Chen",
+      "Huashan Chen",
+      "Zhenyu Qi",
+      "Xiaojia Yang",
+      "Kebin Peng",
+      "Sen He"
+    ],
+    "year": 2024,
+    "type": "conference",
+    "venue": "Proceedings of the 39th IEEE/ACM International Conference on Automated Software Engineering Workshops",
+    "featured": false,
+    "tags": []
+  },
+  {
+    "id": "li-2024-issre",
+    "title": "Assessing the performance of AI-generated code: A case study on GitHub Copilot",
+    "authors": [
+      "Shuang Li",
+      "Yuntao Cheng",
+      "Jinfu Chen",
+      "Jifeng Xuan",
+      "Sen He",
+      "Weiyi Shang"
+    ],
+    "year": 2024,
+    "type": "conference",
+    "venue": "IEEE 35th International Symposium on Software Reliability Engineering (ISSRE), 216-227, 2024",
+    "featured": true,
+    "tags": [
+      "AI Code Generation",
+      "Performance Analysis",
+      "Software Testing"
+    ]
+  },
+  {
+    "id": "liu-2024-eurosys",
+    "title": "Improving Resource and Energy Efficiency for Cloud 3D through Excessive Rendering Reduction",
+    "authors": [
+      "Tianyi Liu",
+      "Jerry Lucas",
+      "Sen He",
+      "Tongping Liu",
+      "Xiaoyin Wang",
+      "Wei Wang"
+    ],
+    "year": 2024,
+    "type": "conference",
+    "venue": "European Conference on Computer Systems (EuroSys), 2024",
+    "featured": true,
+    "tags": [
+      "Cloud Computing",
+      "Performance Engineering"
+    ]
+  },
+  {
+    "id": "he2023study",
+    "title": "A Study of Java Microbenchmark Tail Latencies",
+    "authors": [
+      "Sen He",
+      "In Kee Kim",
+      "Wang Wei"
+    ],
+    "year": 2023,
+    "type": "conference",
+    "venue": "14th ACM/SPEC International Conference on Performance Engineering",
+    "featured": false,
+    "tags": []
+  },
+  {
+    "id": "liu-2022-eccv",
+    "title": "A Cloud 3D Dataset and Application-Specific Learned Image Compression in Cloud 3D",
+    "authors": [
+      "Tianyi Liu",
+      "Sen He",
+      "Vinoh Kumaran Jayakumar",
+      "Wei Wang"
+    ],
+    "year": 2022,
+    "type": "conference",
+    "venue": "European Conference on Computer Vision (ECCV), 2022",
+    "featured": true,
+    "tags": [
+      "Computer Vision",
+      "Cloud Computing",
+      "Deep Learning"
+    ]
+  },
+  {
+    "id": "he-2021-ase",
+    "title": "Performance Testing for Cloud Computing with Dependent Data Bootstrapping",
+    "authors": [
+      "Sen He",
+      "Tianyi Liu",
+      "Palden Lama",
+      "Jaewoo Lee",
+      "In Kee Kim",
+      "Wei Wang"
+    ],
+    "year": 2021,
+    "type": "conference",
+    "venue": "The 36th IEEE/ACM International Conference on Automated Software Engineering (ASE), 2021",
+    "featured": true,
+    "tags": [
+      "Cloud Computing",
+      "Performance Testing",
+      "Software Engineering"
+    ]
+  },
+  {
+    "id": "liu-2020-micro",
+    "title": "A benchmarking framework for interactive 3D applications in the cloud",
+    "authors": [
+      "Tianyi Liu",
+      "Sen He",
+      "Sunzhou Huang",
+      "Danny Tsang",
+      "Lingjia Tang",
+      "Jason Mars",
+      "Wei Wang"
+    ],
+    "year": 2020,
+    "type": "conference",
+    "venue": "53rd Annual IEEE/ACM International Symposium on Microarchitecture (MICRO), 881-894, 2020",
+    "featured": true,
+    "tags": [
+      "Cloud Computing",
+      "Performance Testing"
+    ]
+  },
+  {
+    "id": "he2019statistics",
+    "title": "A statistics-based performance testing methodology for cloud applications",
+    "authors": [
+      "Sen He",
+      "Glenna Manns",
+      "John Saunders",
+      "Wei Wang",
+      "Lori Pollock",
+      "Mary Lou Soffa"
+    ],
+    "year": 2019,
+    "type": "conference",
+    "venue": "Proceedings of the 2019 27th ACM Joint Meeting on European software engineering conference and symposium on the foundations of software engineering",
+    "featured": false,
+    "tags": []
+  },
+  {
+    "id": "wang2018testing",
+    "title": "Testing cloud applications under cloud-uncertainty performance effects",
+    "authors": [
+      "Wei Wang",
+      "Ningjing Tian",
+      "Sunzhou Huang",
+      "Sen He",
+      "Abhijeet Srivastava",
+      "Mary Lou Soffa",
+      "Lori Pollock"
+    ],
+    "year": 2018,
+    "type": "conference",
+    "venue": "2018 IEEE 11th International Conference on Software Testing, Verification and Validation (ICST)",
+    "featured": false,
+    "tags": []
+  },
+  {
+    "id": "alshaikh2015empirical",
+    "title": "A Empirical Study on the Status of Software Localization in Open Source Projects.",
+    "authors": [
+      "Zeyad Alshaikh",
+      "Shaikh Mostafa",
+      "Xiaoyin Wang",
+      "Sen He"
+    ],
+    "year": 2015,
+    "type": "conference",
+    "venue": "SEKE",
+    "featured": false,
+    "tags": []
+  }
+]

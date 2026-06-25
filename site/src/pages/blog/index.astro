@@ -1,0 +1,41 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const fmt = (d: Date) => new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric" }).format(d);
+---
+
+<Base title="News & Blog — Sen He" description="Updates and notes from Sen He's lab." dimBg={true}>
+  <section class="section" style="padding-top:clamp(7rem,12vw,10rem);">
+    <div class="wrap" style="max-width:60rem;">
+      <p class="eyebrow reveal">News</p>
+      <h1 class="reveal" style="margin-bottom:0.5rem;">News</h1>
+      <p class="reveal" style="color:var(--muted);max-width:52ch;margin-bottom:3rem;">
+        Updates on papers, projects, and opportunities in the lab.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:1.25rem;">
+        {posts.map((p) => (
+          <a href={`/blog/${p.id}`} class="gcard post reveal">
+            <span class="post-date">{fmt(p.data.date)}</span>
+            <h2>{p.data.title}</h2>
+            {p.data.summary && <p>{p.data.summary}</p>}
+            <div class="tags">{p.data.tags.slice(0, 4).map((t) => <span class="tag">{t}</span>)}</div>
+          </a>
+        ))}
+      </div>
+      <a href="/" class="link reveal" style="display:inline-block;margin-top:2.5rem;">← Back home</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .post { display: block; text-decoration: none; color: inherit; padding: 1.6rem 1.75rem; }
+  .post-date { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); }
+  :root[data-theme="dark"] .post-date { color: var(--accent-2); }
+  .post h2 { font-size: 1.4rem; line-height: 1.22; margin: 0.5rem 0; }
+  .post p { color: var(--muted); font-size: 0.97rem; line-height: 1.55; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+</style>

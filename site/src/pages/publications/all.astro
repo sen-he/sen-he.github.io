@@ -1,0 +1,140 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+const typeOrder = { journal: 0, conference: 1, preprint: 2 } as Record<string, number>;
+const typeLabel = { journal: "Journal", conference: "Conference", preprint: "Preprint" } as Record<string, string>;
+const pubs = (await getCollection("publications"))
+  .map((p) => p.data)
+  .sort(
+    (a, b) =>
+      b.year - a.year ||
+      typeOrder[a.type] - typeOrder[b.type] ||
+      a.title.localeCompare(b.title)
+  );
+
+const years = [...new Set(pubs.map((p) => p.year))].sort((a, b) => b - a);
+const byYear = years.map((y) => ({ year: y, items: pubs.filter((p) => p.year === y) }));
+const counts = {
+  journal: pubs.filter((p) => p.type === "journal").length,
+  conference: pubs.filter((p) => p.type === "conference").length,
+  preprint: pubs.filter((p) => p.type === "preprint").length,
+};
+---
+
+<Base title="All publications — Sen He" description="Complete list of publications by Sen He, University of Arizona." dimBg={true}>
+  <section class="section pubs">
+    <div class="wrap">
+      <p class="eyebrow reveal">Publications</p>
+      <h1 class="reveal" style="margin-bottom:0.5rem;">All publications</h1>
+      <p class="reveal" style="color:var(--muted);max-width:52ch;margin-bottom:1rem;">
+        Grouped by year and ordered journal, conference, then preprint. Titles
+        link to the publisher where a DOI is available.
+      </p>
+      <p class="reveal" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--accent);margin-bottom:3.5rem;">
+        {counts.journal} journal · {counts.conference} conference · {counts.preprint} preprint
+      </p>
+
+      {byYear.map((group) => (
+        <div class="year-group reveal">
+          <h2 class="year">{group.year}</h2>
+          <ul class="pub-list">
+            {group.items.map((p) => (
+              <li class="pub">
+                <span class={`badge badge-${p.type}`}>{typeLabel[p.type]}</span>
+                <div>
+                  {p.doi ? (
+                    <a class="pub-title" href={`https://doi.org/${p.doi}`}>{p.title}</a>
+                  ) : (
+                    <span class="pub-title">{p.title}</span>
+                  )}
+                  <p class="pub-meta">
+                    {p.authors.map((a, i) => (
+                      <span class={a === "Sen He" ? "me" : undefined}>{a}{i < p.authors.length - 1 ? ", " : ""}</span>
+                    ))}
+                  </p>
+                  <p class="pub-venue-line"><em>{p.venue}</em></p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+
+      <a href="/publications" class="link reveal" style="display:inline-block;margin-top:2rem;">← Recent publications</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .pubs { padding-top: clamp(7rem, 12vw, 10rem); }
+  .year-group { margin-bottom: 3.5rem; }
+  .year {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  :root[data-theme="dark"] .year { color: var(--accent-2); }
+  .pub-list { list-style: none; padding: 0; }
+  .pub {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: 1.25rem;
+    padding: 1.3rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 1.1rem;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-strong);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+    box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow);
+    align-items: start;
+    transition: transform 0.25s var(--ease), border-color 0.25s var(--ease);
+  }
+  .pub::before {
+    content: "";
+    position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(150deg, var(--glass-highlight) 0%, transparent 34%);
+  }
+  .pub > * { position: relative; }
+  .pub:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 50%, transparent); }
+  .badge {
+    justify-self: start;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    padding: 0.3rem 0.65rem;
+    border-radius: 0.55rem;
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+    backdrop-filter: blur(10px) saturate(160%);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .badge-journal { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+  :root[data-theme="dark"] .badge-journal { color: var(--accent-2); }
+  .pub-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    line-height: 1.25;
+    color: inherit;
+    text-decoration: none;
+    display: inline-block;
+    transition: color 0.2s var(--ease);
+  }
+  a.pub-title:hover { color: var(--accent); }
+  :root[data-theme="dark"] a.pub-title:hover { color: var(--accent-2); }
+  .pub-meta { color: var(--muted); font-size: 0.9rem; margin-top: 0.4rem; line-height: 1.5; }
+  .pub-meta .me { color: var(--ink); font-weight: 600; }
+  .pub-venue-line { color: var(--muted); font-size: 0.9rem; margin-top: 0.15rem; }
+  @media (max-width: 640px) {
+    .pub { grid-template-columns: 1fr; gap: 0.6rem; }
+  }
+</style>
