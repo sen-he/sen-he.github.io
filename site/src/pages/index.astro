@@ -44,14 +44,22 @@ const research = [
           <span class="line"><span>He</span></span>
         </h1>
         <p class="lead reveal hero-lead">
-          I build <span class="mark">multi-agent LLM systems</span> for software
+          I build <span class="mark">agentic systems</span> for software
           engineering, and study how AI can <strong>test, debug, and optimize</strong>
           the software the world runs on.
         </p>
         <div class="hero-cta reveal">
           <a href="#publications" class="btn btn-primary">View publications</a>
-          <a href="mailto:senhe@arizona.edu" class="btn">Get in touch</a>
         </div>
+        <nav class="hero-links reveal" aria-label="Professional profiles">
+          <a class="chip" href="https://ece.engineering.arizona.edu/faculty-staff/faculty/sen-he" target="_blank" rel="noopener">UofA ECE</a>
+          <a class="chip" href="https://scholar.google.com/citations?user=ySPHD4cAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+          <a class="chip" href="https://dblp.org/pid/166/4467-2.html" target="_blank" rel="noopener">DBLP</a>
+          <a class="chip" href="https://orcid.org/0000-0002-5204-8976" target="_blank" rel="noopener">ORCID</a>
+          <a class="chip" href="https://www.researchgate.net/profile/Sen-He-3" target="_blank" rel="noopener">ResearchGate</a>
+          <a class="chip" href="https://www.linkedin.com/in/sen-he-cloud/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="chip" href="https://github.com/sen-he" target="_blank" rel="noopener">GitHub</a>
+        </nav>
       </div>
 
       <div class="hero-avatar reveal" data-parallax="-12">
@@ -67,9 +75,9 @@ const research = [
     <div class="wrap about-grid">
       <p class="eyebrow reveal">About</p>
       <p class="about-lead reveal">
-        My research lies at the intersection of <span class="hl">AI for software
-        engineering</span>, <span class="hl">computer vision</span>, and
-        <span class="hl">human-computer interaction</span>. I am especially
+        My research lies at the intersection of <span class="hl hl-1">AI for software
+        engineering</span>, <span class="hl hl-2">computer vision</span>, and
+        <span class="hl hl-3">human-computer interaction</span>. I am especially
         interested in how large language models can be <strong>orchestrated as
         multi-agent systems</strong> to solve complex engineering tasks, from
         automated code generation to performance optimization.
@@ -192,9 +200,29 @@ const research = [
     max-width: 22ch;
     text-wrap: balance;
   }
-  /* elegant accent emphasis (replaces the heavy marker highlight) */
-  .about-lead .hl { color: var(--accent); font-style: italic; }
-  :root[data-theme="dark"] .about-lead .hl { color: var(--accent-2); }
+  /* three research interests, each its own green */
+  .about-lead .hl { font-style: italic; }
+  .about-lead .hl-1 { color: #5a6e10; } /* citron-olive */
+  .about-lead .hl-2 { color: #2f7d3a; } /* grass green */
+  .about-lead .hl-3 { color: #166b5a; } /* teal green */
+  :root[data-theme="dark"] .about-lead .hl-1 { color: #c2e23a; }
+  :root[data-theme="dark"] .about-lead .hl-2 { color: #6cc24a; }
+  :root[data-theme="dark"] .about-lead .hl-3 { color: #36c2a6; }
+
+  /* hero professional-profile chips */
+  .hero-links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; max-width: 34rem; }
+  .chip {
+    font-size: 0.8rem; font-weight: 500;
+    padding: 0.4rem 0.85rem; border-radius: 0.7rem;
+    text-decoration: none; color: var(--ink);
+    border: 1px solid var(--glass-border); background: var(--glass-strong);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+    box-shadow: inset 0 1px 0 var(--glass-highlight), 0 4px 12px -4px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .chip:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 60%, transparent); color: var(--accent); }
+  :root[data-theme="dark"] .chip:hover { color: var(--accent-2); }
 
   .research-grid {
     display: grid;

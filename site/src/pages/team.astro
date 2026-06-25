@@ -45,7 +45,7 @@ const initials = (n: string) => n.split(" ").map((w) => w[0]).join("");
           I look for strong programming skills (Python preferred), curiosity
           about research problems, and good written communication. To apply,
           email your CV, transcripts, and research interests to
-          <a class="link" href="mailto:senhe@arizona.edu">senhe@arizona.edu</a>,
+          <span class="email" aria-label="Email address, written out to deter spam bots">senhe<span> [at] </span>arizona<span> [dot] </span>edu</span>,
           mentioning specific projects that interest you.
         </p>
       </div>
@@ -76,6 +76,7 @@ const initials = (n: string) => n.split(" ").map((w) => w[0]).join("");
   .since { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); margin-bottom: 0.5rem; }
   :root[data-theme="dark"] .since { color: var(--accent-2); }
   .topic { color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
+  .email { font-family: var(--font-mono); color: var(--ink); white-space: nowrap; }
   .plain { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; color: var(--ink); line-height: 1.5; }
   .plain li { padding-left: 1.1rem; position: relative; }
   .plain li::before { content: "▹"; position: absolute; left: 0; color: var(--accent); }
