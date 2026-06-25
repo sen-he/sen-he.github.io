@@ -1,7 +1,8 @@
 // One-off: parse publications.bib + merge with curated metadata → publications.json
 import fs from "node:fs";
 
-const bib = fs.readFileSync("../publications.bib", "utf8");
+// run from the site/ directory: both paths are relative to it
+const bib = fs.readFileSync("publications.bib", "utf8");
 const curated = JSON.parse(fs.readFileSync("src/data/publications.json", "utf8"));
 
 function parse(s) {

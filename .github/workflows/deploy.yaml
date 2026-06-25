@@ -1,10 +1,8 @@
 name: Deploy Astro site to GitHub Pages
 
-# NOTE: this is the redesign-astro version of the deploy workflow. It builds the
-# Astro project in ./site and publishes ./site/dist to GitHub Pages. It replaces
-# the previous Hugo workflow on cutover (when this branch merges to master).
-# Triggers on master pushes and manual dispatch, so it does not run on the
-# redesign-astro branch itself.
+# Builds the Astro project in ./site and publishes ./site/dist to GitHub Pages.
+# Triggers on pushes to master and manual dispatch. Action versions are kept on
+# their latest majors (Node 24 runtime) to avoid Node 20 deprecation warnings.
 
 on:
   push:
@@ -25,9 +23,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Build Astro site
-        uses: withastro/action@v3
+        uses: withastro/action@v6
         with:
           path: ./site # the Astro project lives in a subdirectory
 
@@ -40,4 +38,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
