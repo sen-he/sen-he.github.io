@@ -1,5 +1,5 @@
 ---
-import Base from "../layouts/Base.astro";
+import Base from "../../layouts/Base.astro";
 import { getCollection } from "astro:content";
 
 const typeOrder = { journal: 0, conference: 1, preprint: 2 } as Record<string, number>;
@@ -22,15 +22,14 @@ const counts = {
 };
 ---
 
-<Base title="Publications — Sen He" description="Publications by Sen He, University of Arizona." dimBg={true}>
+<Base title="All publications — Sen He" description="Complete list of publications by Sen He, University of Arizona." dimBg={true}>
   <section class="section pubs">
     <div class="wrap">
       <p class="eyebrow reveal">Publications</p>
-      <h1 class="reveal" style="margin-bottom:0.5rem;">Publications</h1>
+      <h1 class="reveal" style="margin-bottom:0.5rem;">All publications</h1>
       <p class="reveal" style="color:var(--muted);max-width:52ch;margin-bottom:1rem;">
-        Work in software engineering, performance, and computer vision, grouped
-        by year and ordered journal, conference, then preprint. Titles link to
-        the publisher where a DOI is available.
+        Grouped by year and ordered journal, conference, then preprint. Titles
+        link to the publisher where a DOI is available.
       </p>
       <p class="reveal" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--accent);margin-bottom:3.5rem;">
         {counts.journal} journal · {counts.conference} conference · {counts.preprint} preprint
@@ -62,7 +61,7 @@ const counts = {
         </div>
       ))}
 
-      <a href="/" class="link reveal" style="display:inline-block;margin-top:2rem;">← Back home</a>
+      <a href="/publications" class="link reveal" style="display:inline-block;margin-top:2rem;">← Recent publications</a>
     </div>
   </section>
 </Base>

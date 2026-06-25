@@ -23,13 +23,12 @@ import "../styles/global.css";
     <script is:inline>
       (function () {
         try {
-          var t = localStorage.getItem("theme");
-          if (!t)
-            t = matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light";
-          document.documentElement.dataset.theme = t;
-        } catch (e) {}
+          // default to dark; respect an explicit stored choice
+          document.documentElement.dataset.theme =
+            localStorage.getItem("theme") || "dark";
+        } catch (e) {
+          document.documentElement.dataset.theme = "dark";
+        }
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -51,8 +50,9 @@ import "../styles/global.css";
         <div class="nav-links" id="nav-links">
           <a href="/projects">Projects</a>
           <a href="/publications">Publications</a>
+          <a href="/team">Team</a>
           <a href="/teaching">Teaching</a>
-          <a href="/blog">Blog</a>
+          <a href="/blog">News</a>
           <a href="/about">About</a>
           <a href="/cv">CV</a>
         </div>
@@ -298,11 +298,11 @@ import "../styles/global.css";
           if (sag) {
             const cxp = W * (W > 900 ? 0.64 : 0.5), cyp = H * 0.5;
             const left = cxp - sag.boxW / 2, top = cyp - sag.boxH / 2;
-            cx.globalAlpha = 0.85 + 0.12 * Math.sin(t * 0.5); // slow, gentle
+            cx.globalAlpha = 0.85 + 0.12 * Math.sin(t * 0.85);
             cx.drawImage(sag.lineCanvas, left - 26, top - 26, sag.lw, sag.lh);
-            // a slow band of light sweeps the saguaro: points shine in turn
+            // a band of light sweeps the saguaro: points shine in turn
             for (const nd of sag.nodes) {
-              const wave = Math.sin(t * 0.9 - nd.ny * 5.5 - nd.nx * 2 + nd.ph * 0.5);
+              const wave = Math.sin(t * 1.5 - nd.ny * 5.5 - nd.nx * 2 + nd.ph * 0.5);
               cx.globalAlpha = 0.28 + 0.72 * (0.5 + 0.5 * wave);
               cx.drawImage(sag.dot, left + nd.nx * sag.boxW - sag.ds / 2, top + nd.ny * sag.boxH - sag.ds / 2, sag.ds, sag.ds);
             }

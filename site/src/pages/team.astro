@@ -1,0 +1,83 @@
+---
+import Base from "../layouts/Base.astro";
+
+const phd = [
+  { name: "Zhenyu Qi", since: "2024", topic: "LLM4SE — LLMs for performant code generation" },
+  { name: "Haotang Li", since: "2024", topic: "Computer vision — physics-guided monocular depth, segmentation" },
+  { name: "Jiajie Wang", since: "2025", topic: "LLM4SE — LLMs for automated VR testing" },
+];
+const interests = [
+  "Multi-agent LLM systems for software engineering",
+  "AI-driven software testing for emerging platforms (VR, microservices)",
+  "Computer vision and medical image analysis",
+];
+const collaborators = ["East Carolina University", "Augusta University", "Industry and cross-disciplinary partners"];
+const initials = (n: string) => n.split(" ").map((w) => w[0]).join("");
+---
+
+<Base title="Team — Sen He" description="Research team and openings in Sen He's lab." dimBg={true}>
+  <section class="section" style="padding-top:clamp(7rem,12vw,10rem);">
+    <div class="wrap" style="max-width:62rem;">
+      <p class="eyebrow reveal">Team</p>
+      <h1 class="reveal" style="margin-bottom:3rem;">Research team</h1>
+
+      <h2 class="sub reveal">PhD students</h2>
+      <div class="people reveal">
+        {phd.map((p) => (
+          <div class="gcard person">
+            <span class="avatar">{initials(p.name)}</span>
+            <div>
+              <h3>{p.name}</h3>
+              <p class="since">Since {p.since}</p>
+              <p class="topic">{p.topic}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="reveal" style="margin-top:3.5rem;max-width:60ch;">
+        <h2 class="sub">Prospective students</h2>
+        <p style="color:var(--ink);line-height:1.7;">
+          I am <strong>actively recruiting MS students</strong> interested in:
+        </p>
+        <ul class="plain" style="margin-top:1rem;">{interests.map((i) => <li>{i}</li>)}</ul>
+        <p style="color:var(--muted);line-height:1.7;margin-top:1.25rem;">
+          I look for strong programming skills (Python preferred), curiosity
+          about research problems, and good written communication. To apply,
+          email your CV, transcripts, and research interests to
+          <a class="link" href="mailto:senhe@arizona.edu">senhe@arizona.edu</a>,
+          mentioning specific projects that interest you.
+        </p>
+      </div>
+
+      <div class="reveal" style="margin-top:3rem;">
+        <h2 class="sub">Collaborators</h2>
+        <ul class="plain">{collaborators.map((c) => <li>{c}</li>)}</ul>
+      </div>
+
+      <a href="/" class="link reveal" style="display:inline-block;margin-top:3rem;">← Back home</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .sub { font-family: var(--font-mono); font-size: 0.9rem; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 1.25rem; }
+  :root[data-theme="dark"] .sub { color: var(--accent-2); }
+  .people { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: 1.25rem; }
+  .person { display: flex; gap: 1rem; align-items: flex-start; padding: 1.4rem 1.5rem; }
+  .avatar {
+    flex-shrink: 0; width: 3rem; height: 3rem; border-radius: 999px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 0.95rem; font-weight: 500;
+    color: var(--on-accent); background: var(--accent);
+  }
+  :root[data-theme="dark"] .avatar { background: var(--accent); color: var(--on-accent); }
+  .person h3 { font-size: 1.15rem; margin-bottom: 0.15rem; }
+  .since { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); margin-bottom: 0.5rem; }
+  :root[data-theme="dark"] .since { color: var(--accent-2); }
+  .topic { color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
+  .plain { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; color: var(--ink); line-height: 1.5; }
+  .plain li { padding-left: 1.1rem; position: relative; }
+  .plain li::before { content: "▹"; position: absolute; left: 0; color: var(--accent); }
+  :root[data-theme="dark"] .plain li::before { color: var(--accent-2); }
+</style>
