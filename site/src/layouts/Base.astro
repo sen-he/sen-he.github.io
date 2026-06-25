@@ -177,11 +177,11 @@ import "../styles/global.css";
       }
     </script>
     <script>
-      // Animated background: a bold NEON saguaro (Tucson) glowing like a neon
-      // tube, surrounded by drifting neon AI/math symbols over a faint grid.
-      // Glow is pre-rendered to offscreen sprites once (cheap to composite),
-      // then flickered per frame. Draws one frame immediately (survives paused
-      // rAF / headless); loops only when motion is allowed.
+      // Animated background: a NEON saguaro CONSTELLATION (Tucson) — glowing
+      // points sampled from a saguaro silhouette, linked into a network — with
+      // drifting neon AI/math symbols over a faint grid. Glow is pre-rendered to
+      // offscreen sprites (cheap to composite); flicker is slow. Draws one frame
+      // immediately (survives paused rAF / headless); loops only when motion is on.
       const cv = document.getElementById("bg") as HTMLCanvasElement | null;
       const cx = cv && cv.getContext("2d");
       if (cv && cx) {
@@ -191,33 +191,59 @@ import "../styles/global.css";
         let sag: any = null, syms: any[] = [];
         const SYMS = ["∑","∫","∂","∇","π","λ","θ","∞","Δ","σ","µ","Φ","∮","≈","∝","∈","ℝ","∀","∇θ","P(y|x)","eˣ","wᵀx","argmax","∂L"];
 
-        // pre-render the neon saguaro to an offscreen sprite
+        // build the neon constellation saguaro: sample nodes from the silhouette,
+        // link nearby ones, pre-render the glowing lines + a glowing dot sprite
         const buildSaguaro = () => {
-          const targetH = Math.min(H * 0.82, 640);
-          const w = targetH * 0.78, pad = targetH * 0.18;
-          const cw = Math.ceil(w + pad * 2), ch = Math.ceil(targetH + pad * 2);
-          const c = document.createElement("canvas");
-          c.width = cw * DPR; c.height = ch * DPR;
-          const g = c.getContext("2d")!;
-          g.scale(DPR, DPR); g.translate(pad, pad);
-          const tube = dark ? "#c2e23a" : "#84991f";
-          const core = dark ? "#eef7c8" : "#9cb43c";
-          const cx0 = w * 0.5, hh = targetH;
-          const paths = [
-            { p: [[cx0, hh * 0.99], [cx0, hh * 0.07]], wd: w * 0.17 },                       // trunk
-            { p: [[cx0, hh * 0.66], [w * 0.20, hh * 0.66], [w * 0.20, hh * 0.42]], wd: w * 0.12 }, // left arm
-            { p: [[cx0, hh * 0.52], [w * 0.82, hh * 0.52], [w * 0.82, hh * 0.25]], wd: w * 0.12 }, // right arm
-          ];
-          g.lineCap = "round"; g.lineJoin = "round"; g.shadowColor = tube;
-          const stroke = (pts) => { g.beginPath(); g.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) g.lineTo(pts[i][0], pts[i][1]); g.stroke(); };
-          g.strokeStyle = tube;
-          g.globalAlpha = dark ? 0.45 : 0.28; g.shadowBlur = dark ? 38 : 14;
-          for (const t of paths) { g.lineWidth = t.wd; stroke(t.p); }
-          g.globalAlpha = dark ? 0.82 : 0.5; g.shadowBlur = dark ? 16 : 6;
-          for (const t of paths) { g.lineWidth = t.wd; stroke(t.p); }
-          g.shadowBlur = 0; g.strokeStyle = core; g.globalAlpha = dark ? 0.78 : 0.45;
-          for (const t of paths) { g.lineWidth = Math.max(2, t.wd * 0.32); stroke(t.p); }
-          sag = { canvas: c, w: cw, h: ch };
+          const boxH = Math.min(H * 0.8, 600), boxW = boxH * 0.74, pad = 26;
+          const o = document.createElement("canvas"); o.width = 100; o.height = 140;
+          const oc = o.getContext("2d")!;
+          const bar = (x, y, bw, bh, r) => {
+            oc.beginPath(); oc.moveTo(x + r, y);
+            oc.arcTo(x + bw, y, x + bw, y + bh, r); oc.arcTo(x + bw, y + bh, x, y + bh, r);
+            oc.arcTo(x, y + bh, x, y, r); oc.arcTo(x, y, x + bw, y, r); oc.fill();
+          };
+          oc.fillStyle = "#fff";
+          bar(43, 20, 14, 116, 7); bar(22, 64, 26, 12, 6); bar(22, 40, 12, 30, 6);
+          bar(54, 52, 26, 12, 6); bar(70, 24, 12, 32, 6);
+          const d = oc.getImageData(0, 0, 100, 140).data;
+          const nodes: any[] = [];
+          let tries = 0;
+          while (nodes.length < 92 && tries < 8000) {
+            tries++;
+            const px = Math.floor(Math.random() * 100), py = Math.floor(Math.random() * 140);
+            if (d[(py * 100 + px) * 4 + 3] > 12)
+              nodes.push({ nx: px / 100, ny: py / 140, ph: Math.random() * 6.28, sp: 0.3 + Math.random() * 0.5 });
+          }
+          const pairs: any[] = [];
+          for (let i = 0; i < nodes.length; i++)
+            for (let j = i + 1; j < nodes.length; j++) {
+              const dd = Math.hypot(nodes[i].nx - nodes[j].nx, nodes[i].ny - nodes[j].ny);
+              if (dd < 0.105) pairs.push([i, j, dd]);
+            }
+          const col = dark ? "#b6d43a" : "#566b0f";
+          // glowing line network
+          const lc = document.createElement("canvas");
+          lc.width = (boxW + pad * 2) * DPR; lc.height = (boxH + pad * 2) * DPR;
+          const lg = lc.getContext("2d")!;
+          lg.scale(DPR, DPR); lg.translate(pad, pad);
+          lg.strokeStyle = col; lg.shadowColor = col; lg.lineWidth = 1; lg.lineCap = "round";
+          for (const pr of pairs) {
+            const a = nodes[pr[0]], b = nodes[pr[1]];
+            lg.globalAlpha = (dark ? 0.5 : 0.42) * (1 - pr[2] / 0.105);
+            lg.shadowBlur = dark ? 7 : 3;
+            lg.beginPath(); lg.moveTo(a.nx * boxW, a.ny * boxH); lg.lineTo(b.nx * boxW, b.ny * boxH); lg.stroke();
+          }
+          // glowing dot sprite
+          const ds = 16;
+          const dc = document.createElement("canvas");
+          dc.width = ds * DPR; dc.height = ds * DPR;
+          const dg = dc.getContext("2d")!;
+          dg.scale(DPR, DPR);
+          dg.fillStyle = dark ? "#dff0a0" : "#3f4e0b"; dg.shadowColor = col;
+          dg.globalAlpha = dark ? 0.9 : 0.72; dg.shadowBlur = dark ? 9 : 4;
+          dg.beginPath(); dg.arc(ds / 2, ds / 2, 2.1, 0, 6.2832); dg.fill();
+          dg.shadowBlur = dark ? 3 : 1; dg.fill();
+          sag = { nodes, lineCanvas: lc, lw: boxW + pad * 2, lh: boxH + pad * 2, boxW, boxH, dot: dc, ds };
         };
 
         const buildSymbol = (ch: string, size: number) => {
@@ -226,12 +252,12 @@ import "../styles/global.css";
           c.width = dim * DPR; c.height = dim * DPR;
           const g = c.getContext("2d")!;
           g.scale(DPR, DPR);
-          const col = dark ? "#b6d43a" : "#7f9618";
+          const col = dark ? "#b6d43a" : "#4f610e";
           g.font = `${size}px "JetBrains Mono", ui-monospace, monospace`;
           g.textAlign = "center"; g.textBaseline = "middle";
           g.fillStyle = col; g.shadowColor = col;
-          g.globalAlpha = dark ? 0.55 : 0.38; g.shadowBlur = dark ? 22 : 8; g.fillText(ch, dim / 2, dim / 2);
-          g.globalAlpha = dark ? 0.95 : 0.6; g.shadowBlur = dark ? 6 : 2; g.fillText(ch, dim / 2, dim / 2);
+          g.globalAlpha = dark ? 0.55 : 0.42; g.shadowBlur = dark ? 22 : 7; g.fillText(ch, dim / 2, dim / 2);
+          g.globalAlpha = dark ? 0.95 : 0.72; g.shadowBlur = dark ? 6 : 2; g.fillText(ch, dim / 2, dim / 2);
           return { canvas: c, dim };
         };
         const buildSymbols = () => {
@@ -240,7 +266,7 @@ import "../styles/global.css";
           for (let i = 0; i < n; i++) {
             const ch = SYMS[Math.floor(Math.random() * SYMS.length)];
             const size = 17 + Math.random() * 24;
-            syms.push({ sprite: buildSymbol(ch, size), x: Math.random(), y: Math.random(), ph: Math.random() * 6.28, sp: 3 + Math.random() * 3, dphx: Math.random() * 6.28, dphy: Math.random() * 6.28 });
+            syms.push({ sprite: buildSymbol(ch, size), x: Math.random(), y: Math.random(), ph: Math.random() * 6.28, sp: 0.5 + Math.random() * 0.8, dphx: Math.random() * 6.28, dphy: Math.random() * 6.28 });
           }
         };
         const build = () => { dark = document.documentElement.dataset.theme === "dark"; buildSaguaro(); buildSymbols(); };
@@ -256,23 +282,28 @@ import "../styles/global.css";
           cx.clearRect(0, 0, W, H);
           // faint blueprint grid
           cx.globalAlpha = dark ? 0.04 : 0.05;
-          cx.strokeStyle = dark ? "#46571f" : "#c7d2a3"; cx.lineWidth = 1;
+          cx.strokeStyle = dark ? "#46571f" : "#b9c79a"; cx.lineWidth = 1;
           const step = 68;
           cx.beginPath();
           for (let x = step; x < W; x += step) { cx.moveTo(x, 0); cx.lineTo(x, H); }
           for (let y = step; y < H; y += step) { cx.moveTo(0, y); cx.lineTo(W, y); }
           cx.stroke();
-          // neon saguaro
+          // neon saguaro constellation
           if (sag) {
-            const cxp = W * (W > 900 ? 0.82 : 0.5), cyp = H * 0.5;
-            cx.globalAlpha = 0.86 + 0.14 * Math.sin(t * 3.2) + 0.04 * Math.sin(t * 17);
-            cx.drawImage(sag.canvas, cxp - sag.w / 2, cyp - sag.h / 2, sag.w, sag.h);
+            const cxp = W * (W > 900 ? 0.78 : 0.5), cyp = H * 0.5;
+            const left = cxp - sag.boxW / 2, top = cyp - sag.boxH / 2;
+            cx.globalAlpha = 0.85 + 0.12 * Math.sin(t * 0.5); // slow, gentle
+            cx.drawImage(sag.lineCanvas, left - 26, top - 26, sag.lw, sag.lh);
+            for (const nd of sag.nodes) {
+              cx.globalAlpha = 0.5 + 0.45 * (0.5 + 0.5 * Math.sin(t * nd.sp + nd.ph));
+              cx.drawImage(sag.dot, left + nd.nx * sag.boxW - sag.ds / 2, top + nd.ny * sag.boxH - sag.ds / 2, sag.ds, sag.ds);
+            }
           }
-          // drifting neon symbols
+          // drifting neon symbols (slow flicker)
           for (const s of syms) {
-            const x = (s.x + Math.sin(t * 0.12 + s.dphx) * 0.03) * W;
-            const y = (s.y + Math.cos(t * 0.1 + s.dphy) * 0.04) * H;
-            cx.globalAlpha = (dark ? 1 : 0.8) * (0.62 + 0.38 * (0.5 + 0.5 * Math.sin(t * s.sp + s.ph)));
+            const x = (s.x + Math.sin(t * 0.1 + s.dphx) * 0.03) * W;
+            const y = (s.y + Math.cos(t * 0.08 + s.dphy) * 0.04) * H;
+            cx.globalAlpha = (dark ? 1 : 0.92) * (0.62 + 0.38 * (0.5 + 0.5 * Math.sin(t * s.sp + s.ph)));
             cx.drawImage(s.sprite.canvas, x - s.sprite.dim / 2, y - s.sprite.dim / 2, s.sprite.dim, s.sprite.dim);
           }
           cx.globalAlpha = 1;
