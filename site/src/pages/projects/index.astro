@@ -1,0 +1,44 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Base title="Projects — Sen He" description="Research projects by Sen He, University of Arizona." dimBg={true}>
+  <section class="section" style="padding-top:clamp(7rem,12vw,10rem)">
+    <div class="wrap">
+      <p class="eyebrow reveal">Research</p>
+      <h1 class="reveal" style="margin-bottom:0.5rem;">Projects</h1>
+      <p class="reveal" style="color:var(--muted);max-width:52ch;margin-bottom:3rem;">
+        The active threads of my lab's work, from multi-agent LLM systems to
+        cloud performance and computer vision.
+      </p>
+      <div class="proj-grid">
+        {projects.map((p) => (
+          <a href={`/projects/${p.id}`} class="gcard proj reveal">
+            <img src={`/projects/${p.id}.png`} alt="" loading="lazy" width="640" height="360" />
+            <div class="proj-body">
+              <h2>{p.data.title}</h2>
+              <p>{p.data.summary}</p>
+              <div class="tags">{p.data.tags.slice(0, 4).map((t) => <span class="tag">{t}</span>)}</div>
+            </div>
+          </a>
+        ))}
+      </div>
+      <a href="/" class="link reveal" style="display:inline-block;margin-top:2.5rem;">← Back home</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); gap: 1.5rem; }
+  .proj { display: flex; flex-direction: column; text-decoration: none; color: inherit; }
+  .proj img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .proj-body { padding: 1.5rem 1.6rem 1.75rem; }
+  .proj h2 { font-size: 1.35rem; line-height: 1.22; margin-bottom: 0.5rem; }
+  .proj p { color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+</style>

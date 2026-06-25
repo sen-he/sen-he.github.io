@@ -1,0 +1,28 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Base title={`${entry.data.title} — Sen He`} description={entry.data.summary} dimBg={true}>
+  <article class="section" style="padding-top:clamp(7rem,12vw,10rem);">
+    <div class="wrap" style="max-width:60rem;">
+      <p class="eyebrow reveal">Project</p>
+      <h1 class="reveal" style="max-width:20ch;">{entry.data.title}</h1>
+      <div class="reveal" style="display:flex;gap:0.4rem;flex-wrap:wrap;margin:1.25rem 0 2rem;">
+        {entry.data.tags.map((t) => <span class="tag">{t}</span>)}
+      </div>
+      <img src={`/projects/${entry.id}.png`} alt="" class="reveal" width="960" height="540"
+        style="width:100%;border-radius:1.25rem;border:1px solid var(--glass-border);margin-bottom:2.75rem;" />
+      <div class="prose reveal"><Content /></div>
+      <a href="/projects" class="link reveal" style="display:inline-block;margin-top:2.75rem;">← All projects</a>
+    </div>
+  </article>
+</Base>

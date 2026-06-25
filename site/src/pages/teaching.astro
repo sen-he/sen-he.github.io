@@ -1,0 +1,66 @@
+---
+import Base from "../layouts/Base.astro";
+
+const groups = [
+  {
+    org: "University of Arizona",
+    courses: [
+      { code: "SFWE 409/509", name: "Cloud Computing Principles", when: "Spring 2025", note: "Graduate / advanced-undergraduate course on cloud architectures, virtualization (LXC/LXD), containerization, and deployment on AWS and GCP." },
+      { code: "SFWE 101", name: "Introduction to Software Engineering", when: "Fall 2023, Spring 2024, Fall 2024", note: "Undergraduate introduction to the software development lifecycle, Python, object-oriented design, and software testing." },
+    ],
+  },
+  {
+    org: "Augusta University",
+    courses: [
+      { code: "CSCI 4950", name: "Introduction to Cloud Computing", when: "Spring 2023", note: "" },
+      { code: "AIST 2120", name: "Principles of Scripting and Automation", when: "Spring 2023", note: "" },
+      { code: "CYBR 2600", name: "Introduction to Networking and Cybersecurity", when: "Fall 2022", note: "" },
+    ],
+  },
+];
+---
+
+<Base title="Teaching — Sen He" description="Courses taught by Sen He." dimBg={true}>
+  <section class="section" style="padding-top:clamp(7rem,12vw,10rem);">
+    <div class="wrap" style="max-width:60rem;">
+      <p class="eyebrow reveal">Teaching</p>
+      <h1 class="reveal" style="margin-bottom:3rem;">Teaching</h1>
+
+      {groups.map((g) => (
+        <div class="reveal" style="margin-bottom:3rem;">
+          <h2 class="org">{g.org}</h2>
+          <div style="display:flex;flex-direction:column;gap:1rem;">
+            {g.courses.map((c) => (
+              <div class="gcard course">
+                <div class="course-head">
+                  <span class="code">{c.code}</span>
+                  <span class="when">{c.when}</span>
+                </div>
+                <h3>{c.name}</h3>
+                {c.note && <p>{c.note}</p>}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <p class="reveal" style="color:var(--muted);">
+        Selected course materials for SFWE 101 are on
+        <a class="link" href="https://github.com/sen-he/sen-he.github.io/tree/master/teaching">GitHub</a>.
+      </p>
+      <a href="/" class="link reveal" style="display:inline-block;margin-top:2rem;">← Back home</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .org { font-family: var(--font-mono); font-size: 0.95rem; color: var(--accent); letter-spacing: 0.06em; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); margin-bottom: 1.25rem; }
+  :root[data-theme="dark"] .org { color: var(--accent-2); }
+  .course { padding: 1.3rem 1.5rem; }
+  .course-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .code { font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent); }
+  :root[data-theme="dark"] .code { color: var(--accent-2); }
+  .when { font-size: 0.8rem; color: var(--muted); }
+  .course h3 { font-size: 1.2rem; margin: 0.4rem 0 0.4rem; }
+  .course p { color: var(--muted); font-size: 0.93rem; line-height: 1.55; }
+</style>
