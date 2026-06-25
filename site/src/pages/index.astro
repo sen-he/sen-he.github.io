@@ -26,7 +26,7 @@ const research = [
   },
   {
     n: "04",
-    title: "Computer Vision",
+    title: "Efficient Computer Vision",
     body: "Applied work in medical image segmentation, brain-connectivity analysis, and 3D vision.",
   },
 ];
@@ -64,7 +64,7 @@ const research = [
       </div>
 
       <div class="hero-avatar reveal" data-parallax="-12">
-        <img src="/me.png" alt="Sen He" width="320" height="320" />
+        <img src="/me.webp" alt="Sen He" width="320" height="320" fetchpriority="high" />
       </div>
     </div>
 
@@ -77,7 +77,7 @@ const research = [
       <p class="eyebrow reveal">About</p>
       <p class="about-lead reveal">
         My research lies at the intersection of <span class="hl hl-1">AI for software
-        engineering</span>, <span class="hl hl-2">efficient AI</span>, and
+        engineering</span>, <span class="hl hl-2">efficient computer vision</span>, and
         <span class="hl hl-3">human-computer interaction</span>. I am especially
         interested in how large language models can be <span class="hl hl-4">orchestrated as
         multi-agent systems</span> to solve complex engineering tasks, from
@@ -221,6 +221,9 @@ const research = [
     letter-spacing: -0.015em;
     max-width: 22ch;
     text-wrap: balance;
+    /* soft halo in the page bg colour: invisible over the flat background, but
+       keeps the colored phrases legible if a bright saguaro node drifts behind */
+    text-shadow: 0 0 14px var(--bg);
   }
   /* "multi-agent systems" matches the ABOUT eyebrow; 3 interests = 3 other greens */
   .about-lead .hl { font-style: italic; }

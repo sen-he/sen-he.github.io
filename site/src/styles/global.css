@@ -202,9 +202,15 @@ html.has-anim .mark.in { background-size: 100% 42%; }
 .btn:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 var(--glass-highlight), 0 16px 40px -12px rgba(88, 107, 0, 0.5); }
 .btn:active { transform: translateY(0) scale(0.98); }
 .btn-primary {
-  background: linear-gradient(160deg, color-mix(in srgb, #fff 22%, var(--accent)), var(--accent));
+  /* light mode: accent is dark + label is near-white, so keep the top sheen low
+     enough that the white label clears AA over the lightest stop */
+  background: linear-gradient(160deg, color-mix(in srgb, #fff 8%, var(--accent)), var(--accent));
   color: var(--on-accent);
   border-color: color-mix(in srgb, #fff 35%, transparent);
+}
+/* dark mode: accent is bright + label is dark, so the brighter sheen stays legible */
+:root[data-theme="dark"] .btn-primary {
+  background: linear-gradient(160deg, color-mix(in srgb, #fff 22%, var(--accent)), var(--accent));
 }
 .btn-primary:hover { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 16px 40px -10px var(--accent); }
 
@@ -287,11 +293,12 @@ html.has-anim .mark.in { background-size: 100% 42%; }
     border-radius: 1rem;
     box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow);
     opacity: 0;
+    visibility: hidden; /* drop the collapsed links out of the keyboard tab order */
     transform: translateY(-8px);
     pointer-events: none;
-    transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+    transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), visibility 0.25s var(--ease);
   }
-  .nav.menu-open .nav-links { opacity: 1; transform: none; pointer-events: auto; }
+  .nav.menu-open .nav-links { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
   .nav-links a { font-size: 1.05rem; }
 }
 .icon-btn {
@@ -360,11 +367,34 @@ html.has-anim .hero .line.in > span { transform: none; }
   padding-block: 3rem;
   color: var(--muted);
   font-size: 0.9rem;
-  background: var(--glass);
+  /* near-opaque so muted text keeps its contrast floor even over the bright
+     animated background on the home page (which carries no bg-dim scrim) */
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
   box-shadow: inset 0 1px 0 var(--glass-highlight);
 }
+
+/* keyboard focus: one consistent on-brand ring (was relying on the UA default) */
+:where(a, button, .btn, .icon-btn, .chip, .nav-brand, .nav-links a, .link, .pub-title, summary):focus-visible {
+  outline: 2px solid var(--accent-bright);
+  outline-offset: 2px;
+}
+/* skip-to-content: offscreen until focused */
+.skip-link {
+  position: fixed;
+  top: 0.6rem; left: 0.6rem;
+  z-index: 200;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.6rem;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 0.85rem; font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 0.2s var(--ease);
+}
+.skip-link:focus { transform: none; }
 
 /* ---- reusable liquid-glass card ---- */
 .gcard {

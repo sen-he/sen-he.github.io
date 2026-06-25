@@ -14,12 +14,12 @@ const projects = (await getCollection("projects")).sort(
       <h1 class="reveal" style="margin-bottom:0.5rem;">Projects</h1>
       <p class="reveal" style="color:var(--muted);max-width:52ch;margin-bottom:3rem;">
         The active threads of my lab's work, from multi-agent LLM systems to
-        cloud performance and computer vision.
+        cloud performance and efficient computer vision.
       </p>
       <div class="proj-grid">
         {projects.map((p) => (
           <a href={`/projects/${p.id}`} class="gcard proj reveal">
-            <img src={`/projects/${p.id}.png`} alt="" loading="lazy" width="640" height="360" />
+            <img src={`/projects/${p.id}.webp`} alt="" loading="lazy" width="640" height="360" />
             <div class="proj-body">
               <h2>{p.data.title}</h2>
               <p>{p.data.summary}</p>
