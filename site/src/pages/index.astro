@@ -52,7 +52,7 @@ const research = [
           <a href="#publications" class="btn btn-primary">View publications</a>
         </div>
         <nav class="hero-links reveal" aria-label="Professional profiles">
-          <a class="chip" href="https://ece.engineering.arizona.edu/faculty-staff/faculty/sen-he" target="_blank" rel="noopener">UofA ECE</a>
+          <a class="chip" href="https://ece.engineering.arizona.edu/faculty-staff/faculty/sen-he" target="_blank" rel="noopener">University of Arizona</a>
           <a class="chip" href="https://scholar.google.com/citations?user=ySPHD4cAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
           <a class="chip" href="https://dblp.org/pid/166/4467-2.html" target="_blank" rel="noopener">DBLP</a>
           <a class="chip" href="https://orcid.org/0000-0002-5204-8976" target="_blank" rel="noopener">ORCID</a>
@@ -78,8 +78,8 @@ const research = [
         My research lies at the intersection of <span class="hl hl-1">AI for software
         engineering</span>, <span class="hl hl-2">computer vision</span>, and
         <span class="hl hl-3">human-computer interaction</span>. I am especially
-        interested in how large language models can be <strong>orchestrated as
-        multi-agent systems</strong> to solve complex engineering tasks, from
+        interested in how large language models can be <span class="hl hl-4">orchestrated as
+        multi-agent systems</span> to solve complex engineering tasks, from
         automated code generation to performance optimization.
       </p>
     </div>
@@ -200,14 +200,16 @@ const research = [
     max-width: 22ch;
     text-wrap: balance;
   }
-  /* three research interests, each its own green */
+  /* four distinct greens: 3 research interests + "multi-agent systems" */
   .about-lead .hl { font-style: italic; }
-  .about-lead .hl-1 { color: #5a6e10; } /* citron-olive */
-  .about-lead .hl-2 { color: #2f7d3a; } /* grass green */
-  .about-lead .hl-3 { color: #166b5a; } /* teal green */
-  :root[data-theme="dark"] .about-lead .hl-1 { color: #c2e23a; }
-  :root[data-theme="dark"] .about-lead .hl-2 { color: #6cc24a; }
-  :root[data-theme="dark"] .about-lead .hl-3 { color: #36c2a6; }
+  .about-lead .hl-1 { color: #6e7a10; } /* citron-olive */
+  .about-lead .hl-2 { color: #467d18; } /* lime green */
+  .about-lead .hl-3 { color: #136b5c; } /* teal green */
+  .about-lead .hl-4 { color: #1f7a48; } /* emerald (systems) */
+  :root[data-theme="dark"] .about-lead .hl-1 { color: #d4e34a; }
+  :root[data-theme="dark"] .about-lead .hl-2 { color: #7cc83c; }
+  :root[data-theme="dark"] .about-lead .hl-3 { color: #2bc0b0; }
+  :root[data-theme="dark"] .about-lead .hl-4 { color: #3fc46a; }
 
   /* hero professional-profile chips */
   .hero-links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; max-width: 34rem; }
