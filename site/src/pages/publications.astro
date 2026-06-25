@@ -2,12 +2,24 @@
 import Base from "../layouts/Base.astro";
 import { getCollection } from "astro:content";
 
+const typeOrder = { journal: 0, conference: 1, preprint: 2 } as Record<string, number>;
+const typeLabel = { journal: "Journal", conference: "Conference", preprint: "Preprint" } as Record<string, string>;
 const pubs = (await getCollection("publications"))
   .map((p) => p.data)
-  .sort((a, b) => b.year - a.year);
+  .sort(
+    (a, b) =>
+      b.year - a.year ||
+      typeOrder[a.type] - typeOrder[b.type] ||
+      a.title.localeCompare(b.title)
+  );
 
 const years = [...new Set(pubs.map((p) => p.year))].sort((a, b) => b - a);
 const byYear = years.map((y) => ({ year: y, items: pubs.filter((p) => p.year === y) }));
+const counts = {
+  journal: pubs.filter((p) => p.type === "journal").length,
+  conference: pubs.filter((p) => p.type === "conference").length,
+  preprint: pubs.filter((p) => p.type === "preprint").length,
+};
 ---
 
 <Base title="Publications — Sen He" description="Publications by Sen He, University of Arizona." dimBg={true}>
@@ -15,9 +27,13 @@ const byYear = years.map((y) => ({ year: y, items: pubs.filter((p) => p.year ===
     <div class="wrap">
       <p class="eyebrow reveal">Publications</p>
       <h1 class="reveal" style="margin-bottom:0.5rem;">Publications</h1>
-      <p class="reveal" style="color:var(--muted);max-width:48ch;margin-bottom:3.5rem;">
-        Peer-reviewed work in software engineering, performance, and computer
-        vision. Titles link to the publisher where a DOI is available.
+      <p class="reveal" style="color:var(--muted);max-width:52ch;margin-bottom:1rem;">
+        Work in software engineering, performance, and computer vision, grouped
+        by year and ordered journal, conference, then preprint. Titles link to
+        the publisher where a DOI is available.
+      </p>
+      <p class="reveal" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--accent);margin-bottom:3.5rem;">
+        {counts.journal} journal · {counts.conference} conference · {counts.preprint} preprint
       </p>
 
       {byYear.map((group) => (
@@ -26,7 +42,7 @@ const byYear = years.map((y) => ({ year: y, items: pubs.filter((p) => p.year ===
           <ul class="pub-list">
             {group.items.map((p) => (
               <li class="pub">
-                <span class={`badge badge-${p.type}`}>{p.type === "journal" ? "Journal" : "Conference"}</span>
+                <span class={`badge badge-${p.type}`}>{typeLabel[p.type]}</span>
                 <div>
                   {p.doi ? (
                     <a class="pub-title" href={`https://doi.org/${p.doi}`}>{p.title}</a>
