@@ -218,7 +218,7 @@ import "../styles/global.css";
           const boxH = Math.min(H * 0.88, 820), boxW = boxH * 0.74, pad = 30;
           const o = document.createElement("canvas"); o.width = 100; o.height = 140;
           const oc = o.getContext("2d")!;
-          const bar = (x, y, bw, bh, r) => {
+          const bar = (x: number, y: number, bw: number, bh: number, r: number) => {
             oc.beginPath(); oc.moveTo(x + r, y);
             oc.arcTo(x + bw, y, x + bw, y + bh, r); oc.arcTo(x + bw, y + bh, x, y + bh, r);
             oc.arcTo(x, y + bh, x, y, r); oc.arcTo(x, y, x + bw, y, r); oc.fill();

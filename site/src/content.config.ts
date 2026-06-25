@@ -1,5 +1,7 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
 import { file, glob } from "astro/loaders";
+// Astro 7 deprecated re-exporting `z` from astro:content; use its bundled zod.
+import { z } from "astro/zod";
 
 // Publications live in one JSON file — adding a paper is a one-object edit.
 const publications = defineCollection({
