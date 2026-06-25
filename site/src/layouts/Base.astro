@@ -38,6 +38,8 @@ import "../styles/global.css";
     />
   </head>
   <body>
+    <canvas id="bg" class="bg-canvas" aria-hidden="true"></canvas>
+    <div class="bg-grain" aria-hidden="true"></div>
     <div class="scroll-progress" aria-hidden="true"></div>
 
     <nav class="nav">
@@ -95,6 +97,7 @@ import "../styles/global.css";
         try {
           localStorage.setItem("theme", next);
         } catch (e) {}
+        dispatchEvent(new Event("themechange"));
       });
 
       // nav + progress from native scroll — works regardless of rAF / Lenis
@@ -168,6 +171,56 @@ import "../styles/global.css";
             });
           })
           .catch(() => {});
+      }
+    </script>
+    <script>
+      // Animated background: drifting citron orbs on a low-res canvas (scaled up
+      // for soft blur, cheap). Draws one frame immediately so it shows even where
+      // rAF is paused; loops only when motion is allowed.
+      const cv = document.getElementById("bg") as HTMLCanvasElement | null;
+      const cx = cv?.getContext("2d");
+      if (cv && cx) {
+        const reduceBg = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let w = 0, h = 0;
+        const orbs = [
+          { x: 0.18, y: 0.22, r: 0.7, c: 0, sx: 0.05, sy: 0.04, px: 0, py: 1 },
+          { x: 0.82, y: 0.12, r: 0.55, c: 2, sx: 0.045, sy: 0.06, px: 2, py: 0.5 },
+          { x: 0.62, y: 0.72, r: 0.8, c: 1, sx: 0.038, sy: 0.05, px: 1, py: 3 },
+          { x: 0.1, y: 0.85, r: 0.5, c: 3, sx: 0.06, sy: 0.03, px: 4, py: 2 },
+        ];
+        const pal = () =>
+          document.documentElement.dataset.theme === "dark"
+            ? ["152,184,47", "88,107,0", "201,220,114", "44,60,20"]
+            : ["138,158,26", "120,140,30", "182,212,58", "200,210,160"];
+        const resize = () => {
+          w = cv.width = Math.max(1, Math.ceil(innerWidth / 7));
+          h = cv.height = Math.max(1, Math.ceil(innerHeight / 7));
+        };
+        const draw = (t: number) => {
+          const cols = pal();
+          const dark = document.documentElement.dataset.theme === "dark";
+          cx.clearRect(0, 0, w, h);
+          cx.globalCompositeOperation = dark ? "lighter" : "source-over";
+          const a = dark ? 0.3 : 0.14;
+          for (const o of orbs) {
+            const x = (o.x + Math.sin(t * o.sx + o.px) * 0.13) * w;
+            const y = (o.y + Math.cos(t * o.sy + o.py) * 0.13) * h;
+            const rad = o.r * Math.max(w, h);
+            const g = cx.createRadialGradient(x, y, 0, x, y, rad);
+            g.addColorStop(0, `rgba(${cols[o.c]},${a})`);
+            g.addColorStop(1, `rgba(${cols[o.c]},0)`);
+            cx.fillStyle = g;
+            cx.fillRect(0, 0, w, h);
+          }
+        };
+        resize();
+        draw(0);
+        addEventListener("resize", () => { resize(); draw(performance.now() / 1000); }, { passive: true });
+        addEventListener("themechange", () => draw(performance.now() / 1000));
+        if (!reduceBg) {
+          const loop = (now: number) => { draw(now / 1000); requestAnimationFrame(loop); };
+          requestAnimationFrame(loop);
+        }
       }
     </script>
   </body>
